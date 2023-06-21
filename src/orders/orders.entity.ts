@@ -9,4 +9,13 @@ export class OrdersEntity {
   orderedAt: Date;
   paymentStatus: boolean;
   paidAt: Date;
+
+  constructor() {}
+
+  static of(params: Partial<OrdersEntity>) {
+    const entity = new OrdersEntity();
+    Object.assign(entity, params);
+
+    return entity;
+  }
 }

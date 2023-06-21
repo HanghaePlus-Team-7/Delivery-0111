@@ -7,4 +7,13 @@ export class StoreEntity {
   address: string;
   openHour: string;
   closeHour: string;
+
+  constructor() {}
+
+  static of(params: Partial<StoreEntity>) {
+    const entity = new StoreEntity();
+    Object.assign(entity, params);
+
+    return entity;
+  }
 }
