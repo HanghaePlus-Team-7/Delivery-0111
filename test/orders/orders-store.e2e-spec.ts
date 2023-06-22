@@ -2,9 +2,6 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { INestApplication } from "@nestjs/common";
 import * as request from "supertest";
 import { AppModule } from "../../src/app.module";
-import { ShoppingBasketEntity } from "../../src/shopping-basket/shopping-basket.entity";
-import { OrdersEntity } from "../../src/orders/orders.entity";
-import { StoreEntity } from "../../src/store/store.entity";
 
 describe("주문 매장 (e2e)", () => {
   let app: INestApplication;
@@ -19,26 +16,26 @@ describe("주문 매장 (e2e)", () => {
   });
 
   describe("주문 확정", () => {
-    let shoppingBasket: ShoppingBasketEntity;
+    let order: { id: string };
 
     beforeEach(() => {
       // TODO: 제대로 된 샘플 데이터로 변경 필요
-      shoppingBasket = ShoppingBasketEntity.of({});
+      order = { id: "uuid" };
     });
 
     it("주문 확정 성공하면 201 응답을 보내나?", async () => {
-      const res = await request(app.getHttpServer()).post("/orders").send(shoppingBasket);
+      const res = await request(app.getHttpServer()).patch(`/orders/${order.id}/confirmation`);
       expect(res.status).toBe(201);
     });
   });
 
   describe("주문 전체 조회", () => {
     // TODO: 로그인 구현 후 토큰에서 매장 아이디 가져오기 url 변경 필요
-    let store: StoreEntity;
+    let store: { id: string };
 
     beforeEach(async () => {
       // TODO: 제대로 된 샘플 데이터로 변경 필요
-      store = StoreEntity.of({});
+      store = { id: "uuid" };
     });
 
     it("주문 조회 성공하면 200 응답을 보내나?", async () => {
@@ -48,11 +45,11 @@ describe("주문 매장 (e2e)", () => {
   });
 
   describe("주문 상세 조회", () => {
-    let orders: OrdersEntity;
+    let orders: { id: string };
 
     beforeEach(async () => {
       // TODO: 제대로 된 샘플 데이터로 변경 필요
-      orders = OrdersEntity.of({});
+      orders = { id: "uuid" };
     });
 
     it("주문 상세 조회 성공하면 200 응답을 보내나?", async () => {
@@ -61,7 +58,7 @@ describe("주문 매장 (e2e)", () => {
     });
 
     it("주문 상세 조회 없는 주문 아이디로 조회하면 404 응답을 보내나?", async () => {
-      orders = OrdersEntity.of({ id: "no exist uuid" });
+      orders = { id: "no exist uuid" };
 
       const res = await request(app.getHttpServer()).get(`/orders/${orders.id}`);
       expect(res.status).toBe(404);
@@ -71,11 +68,11 @@ describe("주문 매장 (e2e)", () => {
   });
 
   describe("주문 취소", () => {
-    let orders: OrdersEntity;
+    let orders: { id: string };
 
     beforeEach(async () => {
       // TODO: 제대로 된 샘플 데이터로 변경 필요
-      orders = OrdersEntity.of({});
+      orders = { id: "uuid" };
     });
 
     it("주문 취소 성공하면 200 응답을 보내나?", async () => {
