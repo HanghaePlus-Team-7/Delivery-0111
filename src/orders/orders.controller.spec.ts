@@ -1,6 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { OrdersController } from "./orders.controller";
-import { ConfirmOrderService } from "./usecase/confirm-order/confirm-order.service";
+import { ConfirmOrderService } from "./services/confirm-order/confirm-order.service";
 import { ConfirmOrdersDto } from "./dto/request/confirm-orders.dto";
 
 jest.mock("./usecase/confirm-order/confirm-order.service");
