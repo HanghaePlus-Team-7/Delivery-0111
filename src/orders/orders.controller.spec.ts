@@ -5,7 +5,7 @@ import { OrdersController } from "@orders/orders.controller";
 import { CONFIRM_ORDER } from "@orders/services/confirm-order/confirm-order.interface";
 import { ConfirmOrderService } from "@orders/services/confirm-order/confirm-order.service";
 
-jest.mock("./usecase/confirm-order/confirm-order.service");
+jest.mock("./services/confirm-order/confirm-order.service");
 
 describe("OrdersController", () => {
   let controller: OrdersController;
@@ -23,7 +23,7 @@ describe("OrdersController", () => {
     }).compile();
 
     controller = module.get<OrdersController>(OrdersController);
-    confirmOrderService = module.get<ConfirmOrderService>(ConfirmOrderService);
+    confirmOrderService = module.get<ConfirmOrderService>(CONFIRM_ORDER);
 
     jest.clearAllMocks();
   });
