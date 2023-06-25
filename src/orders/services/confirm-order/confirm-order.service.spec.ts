@@ -16,7 +16,7 @@ describe("ConfirmOrder", () => {
       ],
     }).compile();
 
-    provider = module.get<ConfirmOrderService>(ConfirmOrderService);
+    provider = module.get<ConfirmOrderService>(CONFIRM_ORDER);
   });
 
   it("should be defined", () => {
