@@ -1,8 +1,10 @@
 import { Injectable } from "@nestjs/common";
-import { ConfirmOrdersDto } from "../../dto/request/confirm-orders.dto";
+
+import { ConfirmOrdersDto } from "@orders/dto/request/confirm-orders.dto";
+import { ConfirmOrder } from "@orders/services/confirm-order/confirm-order.interface";
 
 @Injectable()
-export class ConfirmOrderService {
+export class ConfirmOrderService implements ConfirmOrder {
   constructor() {}
 
   async execute(confirmOrdersDto: ConfirmOrdersDto): Promise<string> {

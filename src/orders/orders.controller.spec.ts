@@ -1,7 +1,9 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { OrdersController } from "./orders.controller";
-import { ConfirmOrderService } from "./services/confirm-order/confirm-order.service";
-import { ConfirmOrdersDto } from "./dto/request/confirm-orders.dto";
+
+import { ConfirmOrdersDto } from "@orders/dto/request/confirm-orders.dto";
+import { OrdersController } from "@orders/orders.controller";
+import { CONFIRM_ORDER } from "@orders/services/confirm-order/confirm-order.interface";
+import { ConfirmOrderService } from "@orders/services/confirm-order/confirm-order.service";
 
 jest.mock("./usecase/confirm-order/confirm-order.service");
 
@@ -12,7 +14,12 @@ describe("OrdersController", () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [OrdersController],
-      providers: [ConfirmOrderService],
+      providers: [
+        {
+          provide: CONFIRM_ORDER,
+          useClass: ConfirmOrderService,
+        },
+      ],
     }).compile();
 
     controller = module.get<OrdersController>(OrdersController);
@@ -23,7 +30,7 @@ describe("OrdersController", () => {
 
   describe("주문 확정 (confirmOrder)", () => {
     it("주문 확정 서비스를 ConfirmOrdersDto의 인스턴스를 argument로 호출하나?", async () => {
-      const orderId = "a7ad368d-2728-427a-89b7-a223317aac08";
+      const orderId = 1n;
       const confirmOrdersDto = ConfirmOrdersDto.of({ orderId });
 
       await controller.confirmOrder(confirmOrdersDto);
