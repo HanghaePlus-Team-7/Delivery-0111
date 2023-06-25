@@ -1,7 +1,9 @@
-import { Test, TestingModule } from "@nestjs/testing";
 import { INestApplication } from "@nestjs/common";
+import { Test, TestingModule } from "@nestjs/testing";
+
 import * as request from "supertest";
-import { AppModule } from "../../src/app.module";
+
+import { AppModule } from "@root/app.module";
 
 describe("주문 매장 (e2e)", () => {
   let app: INestApplication;
@@ -16,11 +18,11 @@ describe("주문 매장 (e2e)", () => {
   });
 
   describe("주문 확정", () => {
-    let order: { id: string };
+    let order: { id: bigint };
 
     beforeEach(() => {
       // TODO: 제대로 된 샘플 데이터로 변경 필요
-      order = { id: "uuid" };
+      order = { id: 1n };
     });
 
     it("주문 확정 성공하면 201 응답을 보내나?", async () => {
@@ -31,11 +33,11 @@ describe("주문 매장 (e2e)", () => {
 
   describe("주문 전체 조회", () => {
     // TODO: 로그인 구현 후 토큰에서 매장 아이디 가져오기 url 변경 필요
-    let store: { id: string };
+    let store: { id: bigint };
 
     beforeEach(async () => {
       // TODO: 제대로 된 샘플 데이터로 변경 필요
-      store = { id: "uuid" };
+      store = { id: 1n };
     });
 
     it("주문 조회 성공하면 200 응답을 보내나?", async () => {
@@ -45,11 +47,11 @@ describe("주문 매장 (e2e)", () => {
   });
 
   describe("주문 상세 조회", () => {
-    let orders: { id: string };
+    let orders: { id: bigint };
 
     beforeEach(async () => {
       // TODO: 제대로 된 샘플 데이터로 변경 필요
-      orders = { id: "uuid" };
+      orders = { id: 1n };
     });
 
     it("주문 상세 조회 성공하면 200 응답을 보내나?", async () => {
@@ -58,7 +60,7 @@ describe("주문 매장 (e2e)", () => {
     });
 
     it("주문 상세 조회 없는 주문 아이디로 조회하면 404 응답을 보내나?", async () => {
-      orders = { id: "no exist uuid" };
+      orders = { id: -1n };
 
       const res = await request(app.getHttpServer()).get(`/orders/${orders.id}`);
       expect(res.status).toBe(404);
@@ -68,11 +70,11 @@ describe("주문 매장 (e2e)", () => {
   });
 
   describe("주문 취소", () => {
-    let orders: { id: string };
+    let orders: { id: bigint };
 
     beforeEach(async () => {
       // TODO: 제대로 된 샘플 데이터로 변경 필요
-      orders = { id: "uuid" };
+      orders = { id: 1n };
     });
 
     it("주문 취소 성공하면 200 응답을 보내나?", async () => {

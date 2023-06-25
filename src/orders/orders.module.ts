@@ -1,9 +1,16 @@
 import { Module } from "@nestjs/common";
-import { OrdersController } from "./orders.controller";
-import { ConfirmOrderService } from "./services/confirm-order/confirm-order.service";
+
+import { OrdersController } from "@orders/orders.controller";
+import { CONFIRM_ORDER } from "@orders/services/confirm-order/confirm-order.interface";
+import { ConfirmOrderService } from "@orders/services/confirm-order/confirm-order.service";
 
 @Module({
   controllers: [OrdersController],
-  providers: [ConfirmOrderService],
+  providers: [
+    {
+      provide: CONFIRM_ORDER,
+      useClass: ConfirmOrderService,
+    },
+  ],
 })
 export class OrdersModule {}

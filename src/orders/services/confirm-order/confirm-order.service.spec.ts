@@ -1,12 +1,19 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { ConfirmOrderService } from "./confirm-order.service";
+
+import { CONFIRM_ORDER } from "@orders/services/confirm-order/confirm-order.interface";
+import { ConfirmOrderService } from "@orders/services/confirm-order/confirm-order.service";
 
 describe("ConfirmOrder", () => {
   let provider: ConfirmOrderService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [ConfirmOrderService],
+      providers: [
+        {
+          provide: CONFIRM_ORDER,
+          useClass: ConfirmOrderService,
+        },
+      ],
     }).compile();
 
     provider = module.get<ConfirmOrderService>(ConfirmOrderService);
