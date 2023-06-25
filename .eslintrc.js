@@ -6,7 +6,7 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["@typescript-eslint/eslint-plugin", "unused-imports"],
-  extends: ["plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
+  extends: ["plugin:@typescript-eslint/recommended", "plugin:prettier/recommended", "plugin:import/recommended"],
   root: true,
   env: {
     node: true,
@@ -21,5 +21,36 @@ module.exports = {
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-unused-vars": "off",
     "unused-imports/no-unused-imports": "error",
+    "import/no-unresolved": "off",
+    "import/order": [
+      "error",
+      {
+        groups: ["type", "builtin", "external", "internal", "parent", "sibling", "index", "unknown"],
+        pathGroups: [
+          {
+            pattern: "@nestjs/*",
+            group: "external",
+            position: "before",
+          },
+          {
+            pattern: "@root/**",
+            group: "internal",
+            position: "after",
+          },
+          {
+            pattern: "@orders/**",
+            group: "internal",
+            position: "after",
+          },
+        ],
+        pathGroupsExcludedImportTypes: [],
+        alphabetize: {
+          order: "asc",
+          caseInsensitive: true,
+        },
+        "newlines-between": "always",
+      },
+    ],
+    "@typescript-eslint/member-ordering": ["error", { classes: ["field", "constructor", "method"] }],
   },
 };
