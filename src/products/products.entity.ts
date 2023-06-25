@@ -6,5 +6,3 @@ export class ProductsEntity {
   price: number;
   inStock: boolean;
 }
-
-

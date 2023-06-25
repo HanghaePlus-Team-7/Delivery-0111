@@ -1,8 +1,10 @@
-import { IsUUID } from "class-validator";
+import { Transform } from "class-transformer";
+import { IsNotEmpty } from "class-validator";
 
 export class ConfirmOrdersDto {
-  @IsUUID()
-  orderId: string;
+  @IsNotEmpty()
+  @Transform(({ value }) => BigInt(value))
+  orderId: bigint;
 
   constructor() {}
 
