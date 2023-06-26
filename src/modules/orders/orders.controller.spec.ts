@@ -1,9 +1,9 @@
 import { Test, TestingModule } from "@nestjs/testing";
 
-import { ConfirmOrdersDto } from "@orders/dto/request/confirm-orders.dto";
-import { OrdersController } from "@orders/orders.controller";
-import { CONFIRM_ORDER } from "@orders/services/confirm-order/confirm-order.interface";
-import { ConfirmOrderService } from "@orders/services/confirm-order/confirm-order.service";
+import { ConfirmOrdersDto } from "@root/modules/orders/dto/request/confirm-orders.dto";
+import { OrdersController } from "@root/modules/orders/orders.controller";
+import { CONFIRM_ORDER } from "@root/modules/orders/services/confirm-order/confirm-order.interface";
+import { ConfirmOrderService } from "@root/modules/orders/services/confirm-order/confirm-order.service";
 
 jest.mock("./services/confirm-order/confirm-order.service");
 

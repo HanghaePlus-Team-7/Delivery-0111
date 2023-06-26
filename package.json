@@ -79,7 +79,7 @@
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
     "moduleNameMapper": {
-      "^@orders/(.*)$": "<rootDir>/orders/$1",
+      "^@orders/(.*)$": "<rootDir>/modules/orders/$1",
       "^@root/(.*)$": "<rootDir>/$1"
     }
   }
