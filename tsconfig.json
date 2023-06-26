@@ -13,6 +13,7 @@
     "paths": {
       "@root/*": ["./src/*"],
       "@orders/*": ["./src/modules/orders/*"],
+      "@shopping-basket/*": ["./src/modules/shopping-basket/*"]
     },
     "incremental": true,
     "skipLibCheck": true,
