@@ -42,6 +42,11 @@ module.exports = {
             group: "internal",
             position: "after",
           },
+          {
+            pattern: "@shopping-basket/**",
+            group: "internal",
+            position: "after",
+          },
         ],
         pathGroupsExcludedImportTypes: [],
         alphabetize: {

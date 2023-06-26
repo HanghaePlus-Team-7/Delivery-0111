@@ -12,8 +12,8 @@
     "baseUrl": "./",
     "paths": {
       "@root/*": ["./src/*"],
-      "@orders/*": ["./src/orders/*"],
-      "@shopping-basket/*": ["./src/shopping-basket/*"]
+      "@orders/*": ["./src/modules/orders/*"],
+      "@shopping-basket/*": ["./src/modules/shopping-basket/*"]
     },
     "incremental": true,
     "skipLibCheck": true,

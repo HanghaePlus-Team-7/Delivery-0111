@@ -8,7 +8,7 @@
   },
   "moduleNameMapper": {
     "^@root/(.*)$": "<rootDir>/../../src/$1",
-    "^@orders/(.*)$": "<rootDir>/../../src/orders/$1",
+    "^@orders/(.*)$": "<rootDir>/../../src/modules/orders/$1",
     "^@shopping-basket/(.*)$": "<rootDir>/../../src/shopping-basket/$1"
   }
 }

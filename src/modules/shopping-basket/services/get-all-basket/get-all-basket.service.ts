@@ -1,4 +1,4 @@
-import { GetAllBasketDto } from "@root/shopping-basket/dto/shopping-basket.dto";
+import { GetAllBasketDto } from "@shopping-basket/dto/shopping-basket.dto";
 import { Injectable } from "@nestjs/common";
 
 @Injectable()
