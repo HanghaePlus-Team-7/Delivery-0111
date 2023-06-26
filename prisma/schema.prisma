@@ -1,0 +1,131 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        BigInt     @id @default(autoincrement())
+  email     String     @unique @db.VarChar(255)
+  password  String     @db.VarChar(255)
+  nickname  String     @db.VarChar(20)
+  phone     String     @db.VarChar(11)
+  address   String     @db.VarChar(255)
+  createdAt DateTime   @default(now()) @map("created_at") @db.Timestamptz(0)
+  updatedAt DateTime   @updatedAt @map("updated_at") @db.Timestamptz(0)
+  bookmarks Bookmark[]
+  Order     Order[]
+  Cart      Cart[]
+  Review    Review[]
+
+  @@map("user")
+}
+
+model Store {
+  id        BigInt     @id @default(autoincrement())
+  email     String     @unique @db.VarChar(255)
+  password  String     @db.VarChar(255)
+  name      String     @db.VarChar(50)
+  telephone String     @db.VarChar(11)
+  address   String     @db.VarChar(255)
+  openHour  DateTime   @map("open_hour") @db.Time()
+  closeHour DateTime   @map("close_hour") @db.Time()
+  createdAt DateTime   @default(now()) @map("created_at") @db.Timestamptz(0)
+  updatedAt DateTime   @updatedAt @map("updated_at") @db.Timestamptz(0)
+  bookmarks Bookmark[]
+  Product   Product[]
+  Order     Order[]
+  Review    Review[]
+
+  @@map("store")
+}
+
+model Bookmark {
+  id      BigInt @id @default(autoincrement())
+  user    User   @relation(fields: [userId], references: [id])
+  userId  BigInt @map("user_id")
+  Store   Store  @relation(fields: [storeId], references: [id])
+  storeId BigInt @map("store_id")
+
+  @@unique([storeId, userId])
+  @@map("bookmark")
+}
+
+model Product {
+  id         BigInt       @id @default(autoincrement())
+  code       String       @unique @db.VarChar(50)
+  name       String       @db.VarChar(50)
+  price      Int          @db.Integer
+  inStock    Boolean      @default(true) @map("in_stock")
+  createdAt  DateTime     @default(now()) @map("created_at") @db.Timestamptz(0)
+  updatedAt  DateTime     @updatedAt @map("updated_at") @db.Timestamptz(0)
+  store      Store        @relation(fields: [storeId], references: [id])
+  storeId    BigInt       @map("store_id")
+  Cart       Cart[]
+  OrderSheet OrderSheet[]
+
+  @@map("product")
+}
+
+model Order {
+  id            BigInt       @id @default(autoincrement())
+  paymentType   String       @map("payment_type") @db.VarChar(50)
+  status        String       @db.VarChar(50)
+  paymentStatus String       @map("payment_status") @db.VarChar(50)
+  paidAt        DateTime     @map("paid_at") @db.Timestamptz(0)
+  createdAt     DateTime     @default(now()) @map("created_at") @db.Timestamptz(0)
+  updatedAt     DateTime     @updatedAt @map("updated_at") @db.Timestamptz(0)
+  user          User         @relation(fields: [userId], references: [id])
+  userId        BigInt       @map("user_id")
+  store         Store        @relation(fields: [storeId], references: [id])
+  storeId       BigInt       @map("store_id")
+  OrderSheet    OrderSheet[]
+
+  @@map("order")
+}
+
+model Cart {
+  id        BigInt  @id @default(autoincrement())
+  amount    Int     @db.Integer
+  user      User    @relation(fields: [userId], references: [id])
+  userId    BigInt  @map("user_id")
+  product   Product @relation(fields: [productId], references: [id])
+  productId BigInt  @map("product_id")
+
+  @@map("cart")
+}
+
+model Review {
+  id        BigInt   @id @default(autoincrement())
+  images    String[] @db.VarChar(1000)
+  content   String   @db.VarChar(255)
+  comment   String   @db.VarChar(255)
+  star      String   @db.VarChar()
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(0)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(0)
+  user      User     @relation(fields: [userId], references: [id])
+  userId    BigInt   @map("user_id")
+  store     Store    @relation(fields: [storeId], references: [id])
+  storeId   BigInt   @map("store_id")
+
+  @@map("review")
+}
+
+model OrderSheet {
+  id        BigInt   @id @default(autoincrement())
+  amount    Int      @db.Integer
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(0)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(0)
+  order     Order    @relation(fields: [orderId], references: [id])
+  orderId   BigInt   @map("order_id")
+  product   Product  @relation(fields: [productId], references: [id])
+  productId BigInt   @map("product_id")
+
+  @@map("order_sheet")
+}
