@@ -12,7 +12,7 @@
     "baseUrl": "./",
     "paths": {
       "@root/*": ["./src/*"],
-      "@orders/*": ["./src/orders/*"],
+      "@orders/*": ["./src/modules/orders/*"],
     },
     "incremental": true,
     "skipLibCheck": true,
