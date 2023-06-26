@@ -7,16 +7,16 @@ import { GetAllBasketService } from "@shopping-basket/services/get-all-basket/ge
 export class ShoppingBasketController {
   constructor(
     private readonly addBasketService: AddBasketService,
-  ) // private readonly getAllBasketService: GetAllBasketService,
-  {}
+    private readonly getAllBasketService: GetAllBasketService,
+  ) {}
 
   @Post()
   addBasket(@Body() addBasketDto: AddBasketDto) {
     return this.addBasketService.addBasket(addBasketDto);
   }
 
-  // @Get()
-  // getAllBasket(getAllBasketDto: GetAllBasketDto[]) {
-  //   return this.getAllBasketService.getAllBasket(getAllBasketDto);
-  // }
+  @Get()
+  getAllBasket(getAllBasketDto: GetAllBasketDto) {
+    return this.getAllBasketService.getAllBasket(getAllBasketDto);
+  }
 }
