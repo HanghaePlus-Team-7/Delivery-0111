@@ -1,9 +1,9 @@
-import { AddBasketDto } from "@shopping-basket/dto/add-basket.dto";
+import { AddBasketDto } from "@shopping-basket/dto/shopping-basket.dto";
 import { Injectable } from "@nestjs/common";
 
 @Injectable()
 export class AddBasketService {
-  addBasket(AddBasketDto: AddBasketDto) {
+  addBasket(addBasketDto: AddBasketDto) {
     return "This action adds product in shopping basket";
   }
 }

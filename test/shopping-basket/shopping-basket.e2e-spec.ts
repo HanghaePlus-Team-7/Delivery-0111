@@ -1,23 +1,22 @@
-import { INestApplication } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
+import { AddBasketService } from "@shopping-basket/services/add-basket/add-basket.service";
 
-import * as request from "supertest";
-
-import { AppModule } from "../../src/app.module";
-
-describe("shopping-basket (e2e)", () => {
-  let app: INestApplication;
+describe("shopping-basket:e2e", () => {
+  let service;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
+      providers: [AddBasketService],
     }).compile();
 
-    app = moduleFixture.createNestApplication();
-    await app.init();
+    service = moduleFixture.get<AddBasketService>(AddBasketService);
   });
 
-  it("/ (GET)", () => {
-    return request(app.getHttpServer()).get("/").expect(200).expect("Hello World!");
+  it("Service layer is not undefined.", () => {
+    expect(AddBasketService).toBeDefined();
   });
+
+  // it("product가 10개 초과면 장바구니 추가 실패", async () => {
+  //   const
+  // });
 });

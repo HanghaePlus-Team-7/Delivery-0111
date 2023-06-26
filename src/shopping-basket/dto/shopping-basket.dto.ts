@@ -1,6 +1,6 @@
 import { IsNotEmpty } from "class-validator";
 
-export class AddBasketDto {
+export class BasketDto {
   @IsNotEmpty()
   id: bigint;
 
@@ -13,3 +13,6 @@ export class AddBasketDto {
   @IsNotEmpty()
   amount: number;
 }
+
+export class AddBasketDto extends BasketDto {}
+export class GetAllBasketDto extends Array<BasketDto> {}
