@@ -1,7 +1,8 @@
 export class ShoppingBasketEntity {
-  id: number;
-  userId: number;
-  productId: number;
+  id: bigint;
+  userId: bigint;
+  productId: bigint;
+  amount: bigint;
 
   constructor() {}
 
