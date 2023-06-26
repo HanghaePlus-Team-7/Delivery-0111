@@ -1,16 +1,12 @@
 import { Transform } from "class-transformer";
 import { IsNotEmpty } from "class-validator";
 
-export class SignupUserDto {
+export class UpdateUserDto {
   @IsNotEmpty()
   email: string;
 
   @IsNotEmpty()
   password: string;
-
+  @IsNotEmpty()
   id: string;
-  name: string;
-  phone: string;
-  address: string;
-  bookmark: boolean;
 }
