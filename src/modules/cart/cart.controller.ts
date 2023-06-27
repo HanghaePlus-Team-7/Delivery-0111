@@ -6,18 +6,15 @@ import { GetAllCartService } from "@cart/services/get-all-cart/get-all-cart.serv
 
 @Controller("cart")
 export class CartController {
-  constructor(
-    private readonly addBasketService: AddCartService,
-    private readonly getAllBasketService: GetAllCartService,
-  ) {}
+  constructor(private readonly addCartService: AddCartService, private readonly getAllCartService: GetAllCartService) {}
 
   @Post()
-  addBasket(@Body() addBasketDto: AddCartDto) {
-    return this.addBasketService.addBasket(addBasketDto);
+  addBasket(@Body() addCartDto: AddCartDto) {
+    return this.addCartService.addBasket(addCartDto);
   }
 
   @Get()
-  getAllBasket(getAllBasketDto: GetAllCartDto) {
-    return this.getAllBasketService.getAllBasket(getAllBasketDto);
+  getAllBasket(getAllCart: GetAllCartDto) {
+    return this.getAllCartService.getAllBasket(getAllCart);
   }
 }
