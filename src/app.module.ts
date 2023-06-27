@@ -11,9 +11,10 @@ import { ReviewsModule } from "@reviews/reviews.module";
 import { StoreModule } from "@store/store.module";
 
 import { UserModule } from "@user/user.module";
+import { AuthModule } from "./modules/auth/auth.module";
 
 @Module({
-  imports: [UserModule, StoreModule, ProductsModule, OrdersModule, ReviewsModule, CartModule],
+  imports: [UserModule, StoreModule, ProductsModule, OrdersModule, ReviewsModule, CartModule, AuthModule],
   controllers: [],
   providers: [],
 })
