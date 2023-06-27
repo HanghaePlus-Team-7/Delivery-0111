@@ -1,7 +1,7 @@
 import { Test, TestingModule } from "@nestjs/testing";
 
-import { CONFIRM_ORDER } from "@root/modules/orders/services/confirm-order/confirm-order.interface";
-import { ConfirmOrderService } from "@root/modules/orders/services/confirm-order/confirm-order.service";
+import { CONFIRM_ORDER } from "@orders/services/confirm-order/confirm-order.interface";
+import { ConfirmOrderService } from "@orders/services/confirm-order/confirm-order.service";
 
 describe("ConfirmOrder", () => {
   let provider: ConfirmOrderService;

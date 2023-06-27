@@ -8,7 +8,11 @@
   },
   "moduleNameMapper": {
     "^@root/(.*)$": "<rootDir>/../../src/$1",
+    "^@cart/(.*)$": "<rootDir>/../../src/modules/cart/$1",
     "^@orders/(.*)$": "<rootDir>/../../src/modules/orders/$1",
-    "^@shopping-basket/(.*)$": "<rootDir>/../../src/shopping-basket/$1"
+    "^@products/(.*)$": "<rootDir>/../../src/modules/products/$1",
+    "^@reviews/(.*)$": "<rootDir>/../../src/modules/reviews/$1",
+    "^@store/(.*)$": "<rootDir>/../../src/modules/store/$1",
+    "^@user/(.*)$": "<rootDir>/../../src/modules/user/$1"
   }
 }
