@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Param, Delete, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Post, Param, Delete, UsePipes, ValidationPipe, Get } from "@nestjs/common";
 
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UserService } from "./service/user.service";
@@ -12,9 +12,13 @@ export class UserController {
   createUser(@Body() createUserDto: CreateUserDto) {
     return this.userService.createUser(createUserDto);
   }
-
-  @Delete("/:id")
-  deleteUser(@Param("id") id: string): void {
-    this.userService.deleteUser(id);
+  @Get(":id")
+  findOne(@Param("id") id: string) {
+    return this.userService.findOne(+id);
   }
+
+  // @Delete("/:id")
+  // deleteUser(@Param("id") id: string): void {
+  //   this.userService.deleteUser(id);
+  // }
 }
