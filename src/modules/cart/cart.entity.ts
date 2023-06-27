@@ -1,4 +1,4 @@
-export class ShoppingBasketEntity {
+export class CartEntity {
   id: bigint;
   userId: bigint;
   productId: bigint;
@@ -6,8 +6,8 @@ export class ShoppingBasketEntity {
 
   constructor() {}
 
-  static of(params: Partial<ShoppingBasketEntity>) {
-    const entity = new ShoppingBasketEntity();
+  static of(params: Partial<CartEntity>) {
+    const entity = new CartEntity();
     Object.assign(entity, params);
 
     return entity;

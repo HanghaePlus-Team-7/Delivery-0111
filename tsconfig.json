@@ -12,7 +12,12 @@
     "baseUrl": "./",
     "paths": {
       "@root/*": ["./src/*"],
-      "@orders/*": ["./src/modules/orders/*"]
+      "@cart/*": ["./src/modules/cart/*"],
+      "@orders/*": ["./src/modules/orders/*"],
+      "@products/*": ["./src/modules/products/*"],
+      "@reviews/*": ["./src/modules/reviews/*"],
+      "@store/*": ["./src/modules/store/*"],
+      "@user/*": ["./src/modules/user/*"]
     },
     "incremental": true,
     "skipLibCheck": true,
