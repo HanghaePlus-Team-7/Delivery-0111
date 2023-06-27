@@ -8,7 +8,7 @@ export class OrdersController {
   constructor(@Inject(CONFIRM_ORDER) private readonly confirmOrderService: ConfirmOrder) {}
 
   @Patch("/:orderId/confirmation")
-  async confirmOrder(@Param() confirmOrdersDto: ConfirmOrdersDto): Promise<string> {
+  async confirmOrder(@Param() confirmOrdersDto: ConfirmOrdersDto): Promise<void> {
     return await this.confirmOrderService.execute(confirmOrdersDto);
   }
 }
