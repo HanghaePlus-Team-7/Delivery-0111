@@ -1,51 +1,36 @@
-import { Injectable } from "@nestjs/common";
+import { ConflictException, HttpException, Injectable } from "@nestjs/common";
 
-import { CreateUserDto } from "../dto/create-user.dto";
-import { UserEntity } from "../user.entity";
+import { CreateUserDto } from "@user/dto/create-user.dto";
+import { UserEntity } from "@user/user.entity";
+import { PrismaService } from "@root/prisma/prisma.service";
+import { UserRepository } from "@user/user.repository";
 
 @Injectable()
 export class UserService {
-  private users: UserEntity[] = [];
-  // constructor(private prisma: PrismaService) {}
-  getUserById(id: string) {
-    return this.users.find((user) => user.id === id);
-  }
-
+  constructor(private userRepository: UserRepository) {}
   async createUser(createUserDto: CreateUserDto) {
-    const { email, password, id, name, phone, address, bookmark } = createUserDto;
-    const user: UserEntity = {
-      email,
-      password,
-      id,
-      name,
-      phone,
-      address,
-      bookmark,
-    };
-    this.users.push(user);
-    return user;
+    const existingUser = await this.userRepository.findEmail(createUserDto.email);
+
+    if (existingUser) {
+      throw new HttpException(`duplicated ${createUserDto.email}`, 400);
+    }
+
+    return await this.userRepository.createUser(createUserDto);
   }
 
-  // async createUser(data: CreateUserDto) {
-  //   const existingUser = await this.prisma.user.findUnique({
-  //     where: {
-  //       email: data.email,
-  //     },
-  //   });
+  async findOne(id: number) {
+    const found = await this.userRepository.findOne(id);
+    if (!found) {
+      throw new HttpException(`there is no ${id}`, 400);
+    }
+    //password 같은 걸 해주면 안돼
 
-  //   if (existingUser) {
-  //     throw new ConflictException('이미 존재하는 이메일입니다.');
-  //   }
+    // delete found.password;
+    const { password, id: userId, ...result } = found;
+    return result;
+  }
 
-  //   // 유저 생성 로직
-  //   const newUser = await this.prisma.user.create({
-  //     data,
-  //   });
-
-  //   return newUser;
+  // deleteUser(id: string) {
+  //   this.users = this.users.filter((user) => user.id !== id);
   // }
-
-  deleteUser(id: string) {
-    this.users = this.users.filter((user) => user.id !== id);
-  }
 }
