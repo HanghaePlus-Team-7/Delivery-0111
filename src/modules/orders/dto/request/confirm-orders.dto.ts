@@ -1,6 +1,8 @@
 import { Transform } from "class-transformer";
 import { IsNotEmpty } from "class-validator";
 
+import { OrdersEntity } from "@orders/entities/orders.entity";
+
 export class ConfirmOrdersDto {
   @IsNotEmpty()
   @Transform(({ value }) => BigInt(value))
@@ -13,5 +15,9 @@ export class ConfirmOrdersDto {
     Object.assign(confirmOrdersDto, params);
 
     return confirmOrdersDto;
+  }
+
+  public toEntity() {
+    return OrdersEntity.forConfirmOrder(this.orderId);
   }
 }
