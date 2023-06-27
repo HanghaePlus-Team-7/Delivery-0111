@@ -38,12 +38,32 @@ module.exports = {
             position: "after",
           },
           {
+            pattern: "@cart/**",
+            group: "internal",
+            position: "after",
+          },
+          {
             pattern: "@orders/**",
             group: "internal",
             position: "after",
           },
           {
-            pattern: "@shopping-basket/**",
+            pattern: "@products/**",
+            group: "internal",
+            position: "after",
+          },
+          {
+            pattern: "@reviews/**",
+            group: "internal",
+            position: "after",
+          },
+          {
+            pattern: "@store/**",
+            group: "internal",
+            position: "after",
+          },
+          {
+            pattern: "@user/**",
             group: "internal",
             position: "after",
           },

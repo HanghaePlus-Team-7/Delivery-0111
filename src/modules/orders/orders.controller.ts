@@ -1,7 +1,7 @@
 import { Controller, Inject, Param, Patch } from "@nestjs/common";
 
-import { ConfirmOrdersDto } from "@root/modules/orders/dto/request/confirm-orders.dto";
-import { CONFIRM_ORDER, ConfirmOrder } from "@root/modules/orders/services/confirm-order/confirm-order.interface";
+import { ConfirmOrdersDto } from "@orders/dto/request/confirm-orders.dto";
+import { CONFIRM_ORDER, ConfirmOrder } from "@orders/services/confirm-order/confirm-order.interface";
 
 @Controller("orders")
 export class OrdersController {

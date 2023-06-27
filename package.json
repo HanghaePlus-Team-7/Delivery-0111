@@ -21,7 +21,7 @@
     "test:e2e:orders": "jest --config ./test/orders/jest-e2e.json --verbose",
     "test:e2e:products": "jest --config ./test/products/jest-e2e.json --verbose",
     "test:e2e:reviews": "jest --config ./test/reviews/jest-e2e.json --verbose",
-    "test:e2e:shopping-basket": "jest --config ./test/shopping-basket/jest-e2e.json --verbose",
+    "test:e2e:cart": "jest --config test/cart/jest-e2e.json --verbose",
     "test:e2e:store": "jest --config ./test/store/jest-e2e.json --verbose",
     "test:e2e:user": "jest --config ./test/user/jest-e2e.json --verbose"
   },
@@ -79,8 +79,13 @@
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
     "moduleNameMapper": {
+      "^@root/(.*)$": "<rootDir>/$1",
       "^@orders/(.*)$": "<rootDir>/modules/orders/$1",
-      "^@root/(.*)$": "<rootDir>/$1"
+      "^@cart/(.*)$": "<rootDir>/modules/cart/$1",
+      "^@products/(.*)$": "<rootDir>/modules/products/$1",
+      "^@reviews/(.*)$": "<rootDir>/modules/reviews/$1",
+      "^@store/(.*)$": "<rootDir>/modules/store/$1",
+      "^@user/(.*)$": "<rootDir>/modules/user/$1"
     }
   }
 }
