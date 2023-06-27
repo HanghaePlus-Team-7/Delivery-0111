@@ -23,9 +23,6 @@ export class UserService {
     if (!found) {
       throw new HttpException(`there is no ${id}`, 400);
     }
-    //password 같은 걸 해주면 안돼
-
-    // delete found.password;
     const { password, id: userId, ...result } = found;
     return result;
   }
