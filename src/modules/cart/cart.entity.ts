@@ -2,7 +2,7 @@ export class CartEntity {
   id: bigint;
   userId: bigint;
   productId: bigint;
-  amount: bigint;
+  amount: number;
 
   constructor() {}
 
