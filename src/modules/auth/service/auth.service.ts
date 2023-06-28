@@ -1,37 +1,30 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
-import { PrismaService } from "@root/prisma/prisma.service";
-import { UserRepository } from "@user/user.repository";
+import { HttpException, Injectable, UnauthorizedException } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
 import { LoginRequest } from "../dto/request/login.request";
+import { JwtPayload } from "../dto/jwt-payload";
+import { User } from "@prisma/client";
+import { LoginUserResponse } from "../dto/response/login-user.response";
+import { AuthRepository } from "../auth.repository";
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly authRepository: AuthRepository, private readonly jwtService: JwtService) {}
 
-  //   async login(loginRequest: LoginRequest): Promise<string> {
-  //     const normalizedIdentifier = loginRequest.email.toLowerCase();
-  //     const user = await this.prisma.user.findFirst({
-  //       where: {
-  //         email: normalizedIdentifier,
-  //       },
-  //       select: {
-  //         id: true,
-  //         password: true,
-  //         email: true,
-  //         nickname: true,
-  //       },
-  //     });
+  async validateUser(payload: JwtPayload): Promise<User> {
+    const user = await this.authRepository.findEmail(payload.email);
 
-  //     if (user === null) {
-  //       throw new UnauthorizedException();
-  //     }
+    if (user !== null && user.email === payload.email && user.nickname === payload.nickname) {
+      return user;
+    }
+    throw new HttpException(`there is no ${user}`, 400);
+  }
 
-  //     const payload: JwtPayload = {
-  //       id: user.id,
-  //       email: user.email,
-  //       nickname: user.nickname,
-  //     };
-
-  //     return this.jwtService.signAsync(payload);
-  //   }
-  async login(loginRequest: LoginRequest): Promise<void> {}
+  async login(loginRequest: LoginRequest): Promise<string> {
+    const normalizedIdentifier = loginRequest.email.toLowerCase();
+    const user = await this.authRepository.findEmail(normalizedIdentifier);
+    if (user === null) {
+      throw new HttpException(`there is no ${user}`, 400);
+    }
+    return await this.authRepository.login(loginRequest);
+  }
 }
