@@ -20,7 +20,9 @@ export class StoreRepository {
         closeHour,
       },
     });
-    return new CreateStoreResponse(store);
+    console.log("1", store);
+    const newStore = { ...store, id: store.id.toString() };
+    return newStore;
   }
 
   async findEmail(email: string) {

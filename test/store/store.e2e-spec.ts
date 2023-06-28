@@ -1,8 +1,6 @@
 import { INestApplication } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
-
 import * as request from "supertest";
-
 import { AppModule } from "../../src/app.module";
 
 describe("store (e2e)", () => {
@@ -17,7 +15,33 @@ describe("store (e2e)", () => {
     await app.init();
   });
 
-  it("/ (GET)", () => {
-    return request(app.getHttpServer()).get("/").expect(200).expect("Hello World!");
+  describe("매장 회원가입", () => {
+    let store: {
+      email: string;
+      password: string;
+      name: string;
+      telephone: string;
+      address: string;
+      openHour: Date;
+      closeHour: Date;
+    };
+
+    beforeEach(() => {
+      // TODO: 제대로 된 샘플 데이터로 변경 필요
+      store = {
+        email: "sfsdas12322f@gmail.com",
+        password: "asdf1324@",
+        name: "asd",
+        telephone: "asd",
+        address: "asd",
+        openHour: new Date(),
+        closeHour: new Date(),
+      };
+    });
+
+    it("회원가입에 성공하면 201 응답을 보내나?", async () => {
+      const res = await request(app.getHttpServer()).post("/store").send(store);
+      expect(res.status).toBe(201);
+    });
   });
 });
