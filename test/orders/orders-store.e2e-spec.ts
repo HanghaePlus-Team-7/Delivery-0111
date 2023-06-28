@@ -1,14 +1,19 @@
 import { INestApplication, ValidationPipe } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 
+import { Order, PrismaClient } from "@prisma/client";
 import * as request from "supertest";
 
 import { AppModule } from "@root/app.module";
 import { PrismaService } from "@root/prisma/prisma.service";
 
+import { OrderStatus } from "@orders/entities/order-status";
+
+const prisma = new PrismaClient();
 describe("주문 매장 (e2e)", () => {
   let app: INestApplication;
   let prismaService: PrismaService;
+  let order: Order;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -28,17 +33,72 @@ describe("주문 매장 (e2e)", () => {
     prismaService = moduleFixture.get<PrismaService>(PrismaService);
   });
 
-  describe("주문 확정", () => {
-    let order: { id: bigint };
-
-    beforeEach(() => {
-      // TODO: 제대로 된 샘플 데이터로 변경 필요
-      order = { id: 1n };
+  beforeAll(async () => {
+    await prisma.user.create({
+      data: {
+        email: "test-email@email.com",
+        password: "test-password",
+        nickname: "test-nickname",
+        phone: "01012345678",
+        address: "test-address",
+      },
     });
 
-    it("주문 확정 성공하면 201 응답을 보내나?", async () => {
+    await prisma.store.create({
+      data: {
+        email: "test-store-email@email.com",
+        password: "test-store-password",
+        name: "test-store-name",
+        address: "test-store-address",
+        telephone: "01012345678",
+        openHour: new Date(),
+        closeHour: new Date(),
+      },
+    });
+
+    await prisma.product.create({
+      data: {
+        name: "test-product-name",
+        code: "test-product-code",
+        price: 1000,
+        storeId: 1n,
+      },
+    });
+
+    order = await prisma.order.create({
+      data: {
+        userId: 1n,
+        storeId: 1n,
+        OrderSheet: {
+          create: {
+            productId: 1n,
+            amount: 1,
+          },
+        },
+        paymentType: "CARD",
+        paidAt: new Date(),
+        paymentStatus: "PAID",
+        status: OrderStatus.RECEPTION,
+      },
+    });
+  });
+  describe("주문 확정", () => {
+    it("주문 확정 성공하면 200 응답을 보내나?", async () => {
       const res = await request(app.getHttpServer()).patch(`/orders/${order.id}/confirmation`);
-      expect(res.status).toBe(201);
+      expect(res.status).toBe(200);
+    });
+
+    it("주문 확정 성공하면 DB에서 상태가 'CONFIRMED'로 바뀌나?", async () => {
+      await request(app.getHttpServer()).patch(`/orders/${order.id}/confirmation`);
+      const result = await prisma.order.findUnique({
+        select: {
+          status: true,
+        },
+        where: {
+          id: order.id,
+        },
+      });
+      expect(result?.status).toBe(OrderStatus.CONFIRMED);
     });
   });
 
