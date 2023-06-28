@@ -4,7 +4,7 @@ import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 
 import { AppModule } from "./app.module";
 import { setNestApp } from "./common/setNestApp";
-import { BigIntToStringInterceptor } from "./common/bigIntToStringInterceptoe";
+import { BigIntToStringInterceptor } from "./common/bigIntToStringInterceptor";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -15,7 +15,7 @@ async function bootstrap() {
       transform: true,
     }),
   );
-
+  app.useGlobalInterceptors(new BigIntToStringInterceptor());
   const config = new DocumentBuilder()
     .setTitle("Delivery0111 API")
     .setDescription("Delivery0111 API description")
@@ -25,7 +25,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup("api", app, document);
   setNestApp(app);
-  app.useGlobalInterceptors(new BigIntToStringInterceptor());
   await app.listen(3000);
 }
 bootstrap();

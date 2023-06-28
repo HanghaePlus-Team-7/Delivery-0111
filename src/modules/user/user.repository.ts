@@ -9,7 +9,6 @@ export class UserRepository {
 
   async createUser(createUserDto: CreateUserDto) {
     const { email, password, nickname, phone, address } = createUserDto;
-
     const user = await this.prisma.user.create({
       data: {
         email,
@@ -19,7 +18,8 @@ export class UserRepository {
         address,
       },
     });
-    return new CreateUserResponse(user);
+    const newUser = { ...user, id: user.id.toString() };
+    return newUser;
   }
 
   async findEmail(email: string) {

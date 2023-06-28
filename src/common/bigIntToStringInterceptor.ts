@@ -9,6 +9,7 @@ export class BigIntToStringInterceptor implements NestInterceptor {
   }
 
   convertBigIntToString(data: any): any {
+    console.log("data------2", data);
     if (data instanceof Array) {
       return data.map((item) => this.convertBigIntToString(item));
     } else if (data instanceof Object) {

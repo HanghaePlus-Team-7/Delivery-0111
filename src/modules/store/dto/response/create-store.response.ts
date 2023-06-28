@@ -3,7 +3,7 @@ import { Store } from "@prisma/client";
 import { Exclude, Expose } from "class-transformer";
 
 export class CreateStoreResponse {
-  @Exclude() private readonly _id: BigInt;
+  @Exclude() private readonly id: BigInt;
   email: string;
   password: string;
   name: string;
@@ -15,7 +15,7 @@ export class CreateStoreResponse {
   updatedAt: string;
 
   constructor(store: Store) {
-    this._id = store.id;
+    this.id = store.id;
     this.email = store.email;
     this.password = store.password;
     this.name = store.name;
@@ -29,7 +29,7 @@ export class CreateStoreResponse {
 
   @ApiProperty()
   @Expose()
-  get id(): string {
-    return this._id.toString();
+  get id2(): string {
+    return this.id.toString();
   }
 }
