@@ -10,4 +10,10 @@ export class AuthController {
   async login(@Body() loginRequest: LoginRequest): Promise<LoginResponse> {
     return new LoginResponse(await this.authService.login(loginRequest));
   }
+
+  @Post("login/store")
+  @HttpCode(HttpStatus.OK)
+  async loginStore(@Body() loginRequest: LoginRequest): Promise<LoginResponse> {
+    return new LoginResponse(await this.authService.loginStore(loginRequest));
+  }
 }

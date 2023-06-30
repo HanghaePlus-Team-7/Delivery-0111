@@ -15,6 +15,14 @@ export class StoreService {
     return await this.storeRepository.createStore(createStoreRequest);
   }
 
+  async findAll() {
+    const found = await this.storeRepository.findAll();
+    if (!found) {
+      throw new HttpException(`there is no ${found}`, 400);
+    }
+    return found;
+  }
+
   async findOne(id: number) {
     const found = await this.storeRepository.findOne(id);
     if (!found) {

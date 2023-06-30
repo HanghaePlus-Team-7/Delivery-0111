@@ -2,6 +2,7 @@ import { INestApplication } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import * as request from "supertest";
 import { AppModule } from "../../src/app.module";
+import { log } from "console";
 
 describe("store (e2e)", () => {
   let app: INestApplication;
@@ -29,7 +30,7 @@ describe("store (e2e)", () => {
     beforeEach(() => {
       // TODO: 제대로 된 샘플 데이터로 변경 필요
       store = {
-        email: "sfsdas12322f@gmail.com",
+        email: "sfsdas123221212f@gmail.com",
         password: "asdf1324@",
         name: "asd",
         telephone: "asd",
@@ -39,9 +40,21 @@ describe("store (e2e)", () => {
       };
     });
 
-    it("회원가입에 성공하면 201 응답을 보내나?", async () => {
+    it("매장 회원가입에 성공하면 201 응답을 보내나?", async () => {
       const res = await request(app.getHttpServer()).post("/store").send(store);
       expect(res.status).toBe(201);
+    });
+  });
+
+  describe("매장 전체 목록", () => {
+    beforeEach(() => {
+      // TODO: 제대로 된 샘플 데이터로 변경 필요
+    });
+
+    it("매장목록이 정상적으로 리턴하면 200 응답을 보내나?", async () => {
+      const res = await request(app.getHttpServer()).get("/store");
+      log(res.body);
+      expect(res.status).toBe(200);
     });
   });
 });

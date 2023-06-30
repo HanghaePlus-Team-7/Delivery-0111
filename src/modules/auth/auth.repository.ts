@@ -59,4 +59,37 @@ export class AuthRepository {
       },
     });
   }
+
+  async loginStore(loginRequest: LoginRequest): Promise<string> {
+    const normalizedIdentifier = loginRequest.email.toLowerCase();
+    const store = await this.prisma.store.findFirst({
+      where: {
+        email: normalizedIdentifier,
+      },
+      select: {
+        id: true,
+        password: true,
+        email: true,
+        name: true,
+        telephone: true,
+        address: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+    console.log(store);
+    if (store === null) {
+      throw new UnauthorizedException();
+    }
+
+    const newStore = { ...store, id: store.id.toString() };
+
+    const payload: JwtPayload = {
+      id: newStore.id,
+      email: newStore.email,
+      nickname: newStore.name,
+    };
+
+    return this.jwtService.signAsync(payload);
+  }
 }
