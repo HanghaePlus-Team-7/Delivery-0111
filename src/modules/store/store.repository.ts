@@ -40,4 +40,13 @@ export class StoreRepository {
       },
     });
   }
+
+  async findAll() {
+    const found = await this.prisma.store.findMany();
+    const allStore = found.map((store) => {
+      const { password, id: userId, ...result } = store;
+      return result;
+    });
+    return allStore;
+  }
 }

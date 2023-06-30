@@ -27,4 +27,13 @@ export class AuthService {
     }
     return await this.authRepository.login(loginRequest);
   }
+
+  async loginStore(loginRequest: LoginRequest): Promise<string> {
+    const normalizedIdentifier = loginRequest.email.toLowerCase();
+    const user = await this.authRepository.findEmail(normalizedIdentifier);
+    if (user === null) {
+      throw new HttpException(`there is no ${user}`, 400);
+    }
+    return await this.authRepository.loginStore(loginRequest);
+  }
 }
