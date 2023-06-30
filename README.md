@@ -2,6 +2,8 @@
 
 TDD로 해보는 배달 시스템 프로젝트
 
+<br>
+
 ## Team
 
 |  이름  | email                 | github  |
@@ -10,9 +12,13 @@ TDD로 해보는 배달 시스템 프로젝트
 | 이현규 | fsd76005588@gamil.com | @github |
 | 최유영 | waveinyu@gmail.com    | @github |
 
+<br>
+
 ## ERD
 
 ![erd](https://github.com/HanghaePlus-Team-7/Delivery-0111/assets/99732695/655124e7-8aa1-41d0-8adf-27cab1415266)
+
+<br>
 
 ## 폴더구조
 
@@ -30,6 +36,8 @@ root
 ├ /test                         # [E2E] Auth, Cart, Orders, Products, ...
 └ ~ other files...
 ```
+
+<br>
 
 ## 모듈리스트
 
@@ -58,3 +66,5 @@ root
     ...
   },
 ```
+
+<br>
