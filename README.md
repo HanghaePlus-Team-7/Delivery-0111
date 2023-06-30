@@ -6,11 +6,11 @@ TDD로 해보는 배달 시스템 프로젝트
 
 ## Team
 
-|  이름  | email                 | github  |
-| :----: | --------------------- | :-----: |
-| 이푸름 | pooreum83@gmail.com   | @github |
-| 이현규 | fsd76005588@gamil.com | @github |
-| 최유영 | waveinyu@gmail.com    | @github |
+|  이름  | email                 | Link                                       |
+| :----: | --------------------- | ------------------------------------------ |
+| 이푸름 | pooreum83@gmail.com   | [Github](https://github.com/pooreumu)      |
+| 이현규 | fsd76005588@gamil.com | [Github](https://github.com/Aiden76005588) |
+| 최유영 | waveinyu@gmail.com    | [Github](https://github.com/waveiyu)       |
 
 <br>
 
