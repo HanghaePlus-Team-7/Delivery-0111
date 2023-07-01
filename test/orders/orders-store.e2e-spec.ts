@@ -1,7 +1,7 @@
 import { INestApplication, ValidationPipe } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 
-import { Order, PrismaClient } from "@prisma/client";
+import { Order, PrismaClient, Store } from "@prisma/client";
 import * as request from "supertest";
 
 import { AppModule } from "@root/app.module";
@@ -9,11 +9,14 @@ import { PrismaService } from "@root/prisma/prisma.service";
 
 import { OrderStatus } from "@orders/entities/order-status";
 
+import { truncateTable } from "../truncate-table";
+
 const prisma = new PrismaClient();
 describe("주문 매장 (e2e)", () => {
   let app: INestApplication;
   let prismaService: PrismaService;
   let order: Order;
+  let store: Store;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -33,8 +36,16 @@ describe("주문 매장 (e2e)", () => {
     prismaService = moduleFixture.get<PrismaService>(PrismaService);
   });
 
-  beforeAll(async () => {
-    await prisma.user.create({
+  afterAll(async () => {
+    await app.close();
+  });
+
+  afterEach(async () => {
+    await truncateTable(prisma);
+  });
+
+  beforeEach(async () => {
+    const user = await prisma.user.create({
       data: {
         email: "test-email@email.com",
         password: "test-password",
@@ -44,7 +55,7 @@ describe("주문 매장 (e2e)", () => {
       },
     });
 
-    await prisma.store.create({
+    store = await prisma.store.create({
       data: {
         email: "test-store-email@email.com",
         password: "test-store-password",
@@ -56,22 +67,22 @@ describe("주문 매장 (e2e)", () => {
       },
     });
 
-    await prisma.product.create({
+    const product = await prisma.product.create({
       data: {
         name: "test-product-name",
         code: "test-product-code",
         price: 1000,
-        storeId: 1n,
+        storeId: store.id,
       },
     });
 
     order = await prisma.order.create({
       data: {
-        userId: 1n,
-        storeId: 1n,
+        userId: user.id,
+        storeId: store.id,
         OrderSheet: {
           create: {
-            productId: 1n,
+            productId: product.id,
             amount: 1,
           },
         },
@@ -82,6 +93,7 @@ describe("주문 매장 (e2e)", () => {
       },
     });
   });
+
   describe("주문 확정", () => {
     it("주문 확정 성공하면 200 응답을 보내나?", async () => {
       const res = await request(app.getHttpServer()).patch(`/orders/${order.id}/confirmation`);
@@ -103,14 +115,6 @@ describe("주문 매장 (e2e)", () => {
   });
 
   describe("주문 전체 조회", () => {
-    // TODO: 로그인 구현 후 토큰에서 매장 아이디 가져오기 url 변경 필요
-    let store: { id: bigint };
-
-    beforeEach(async () => {
-      // TODO: 제대로 된 샘플 데이터로 변경 필요
-      store = { id: 1n };
-    });
-
     it("주문 조회 성공하면 200 응답을 보내나?", async () => {
       const res = await request(app.getHttpServer()).get(`/orders/stores/${store.id}`);
       expect(res.status).toBe(200);
