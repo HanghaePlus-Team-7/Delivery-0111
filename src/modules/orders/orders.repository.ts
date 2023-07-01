@@ -26,4 +26,55 @@ export class OrdersRepository {
       throw new InternalServerErrorException();
     }
   }
+
+  async getOrdersOfStore(id: bigint) {
+    try {
+      return await this.prismaService.order.findMany({
+        where: {
+          storeId: id,
+        },
+        select: {
+          id: true,
+          paymentType: true,
+          paymentStatus: true,
+          status: true,
+          user: {
+            select: {
+              id: true,
+              email: true,
+              password: false,
+              nickname: true,
+              phone: true,
+              address: true,
+            },
+          },
+          store: {
+            select: {
+              id: true,
+              email: true,
+              password: false,
+              name: true,
+            },
+          },
+          OrderSheet: {
+            select: {
+              amount: true,
+              product: {
+                select: {
+                  id: true,
+                  name: true,
+                  price: true,
+                },
+              },
+            },
+          },
+        },
+        orderBy: {
+          id: "desc",
+        },
+      });
+    } catch (e) {
+      throw new InternalServerErrorException();
+    }
+  }
 }
