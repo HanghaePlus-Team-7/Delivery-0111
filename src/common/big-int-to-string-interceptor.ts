@@ -1,4 +1,5 @@
 import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from "@nestjs/common";
+
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
@@ -9,7 +10,6 @@ export class BigIntToStringInterceptor implements NestInterceptor {
   }
 
   convertBigIntToString(data: any): any {
-    console.log("data------2", data);
     if (data instanceof Array) {
       return data.map((item) => this.convertBigIntToString(item));
     } else if (data instanceof Object) {
