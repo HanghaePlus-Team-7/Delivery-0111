@@ -8,8 +8,8 @@ import {
 import { Reflector } from "@nestjs/core";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 
-import { BigIntToStringInterceptor } from "./bigIntToStringInterceptor";
-import { CustomValidationError } from "./customValidationError";
+import { BigIntToStringInterceptor } from "./big-int-to-string-interceptor";
+import { CustomValidationError } from "./custom-validation-error";
 
 export function setNestApp<T extends INestApplication>(app: T): void {
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)), new BigIntToStringInterceptor());

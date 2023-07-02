@@ -5,7 +5,7 @@ import { Order, PrismaClient, Product, Store, User } from "@prisma/client";
 import * as request from "supertest";
 
 import { AppModule } from "@root/app.module";
-import { setNestApp } from "@root/common/setNestApp";
+import { setNestApp } from "@root/common/set-nest-app";
 import { PrismaService } from "@root/prisma/prisma.service";
 
 import { OrderStatus } from "@orders/entities/order-status";
