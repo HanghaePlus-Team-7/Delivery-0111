@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsString, Length, IsEmail, Matches } from "class-validator";
+import { UserEntity } from "../../entities/user.entity";
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -23,4 +24,16 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   address: string;
+
+  constructor() {}
+
+  static of(params: Partial<CreateUserDto>) {
+    const createUserDto = new CreateUserDto();
+    Object.assign(createUserDto, params);
+    return createUserDto;
+  }
+
+  public toEntity() {
+    return new UserEntity(this);
+  }
 }

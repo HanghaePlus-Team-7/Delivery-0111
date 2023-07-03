@@ -1,4 +1,4 @@
 export interface User {
-  email: string;
-  password: string;
+  execute: (id: bigint) => Promise<any>;
 }
+export const USER = Symbol("USER");
