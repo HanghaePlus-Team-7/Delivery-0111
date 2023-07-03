@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 
-import { GetAllCartDto } from "@cart/dto/cart.dto";
+import { GetAllCartDto } from "@root/modules/cart/dto/request/add-cart.dto";
 
 @Injectable()
 export class GetAllCartService {

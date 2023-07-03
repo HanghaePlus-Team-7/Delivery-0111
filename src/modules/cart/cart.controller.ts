@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
 
-import { AddCartDto, GetAllCartDto } from "@cart/dto/cart.dto";
+import { AddCartDto, GetAllCartDto } from "@root/modules/cart/dto/request/add-cart.dto";
 import { AddCartService } from "@cart/services/add-cart/add-cart.service";
 import { GetAllCartService } from "@cart/services/get-all-cart/get-all-cart.service";
 
