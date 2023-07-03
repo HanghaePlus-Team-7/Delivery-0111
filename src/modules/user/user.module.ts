@@ -4,10 +4,20 @@ import { UserService } from "./service/user.service";
 import { UserController } from "./user.controller";
 import { PrismaService } from "../../prisma/prisma.service";
 import { UserRepository } from "./user.repository";
+import { CREATE_USER } from "./service/create-user/create-user.interface";
+import { CreateUserService } from "./service/create-user/create-user.service";
 
 @Module({
   controllers: [UserController],
-  providers: [UserService, PrismaService, UserRepository],
+  providers: [
+    UserService,
+    {
+      provide: CREATE_USER,
+      useClass: CreateUserService,
+    },
+    PrismaService,
+    UserRepository,
+  ],
   exports: [UserService],
 })
 export class UserModule {}
