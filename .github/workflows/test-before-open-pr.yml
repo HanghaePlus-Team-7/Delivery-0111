@@ -1,0 +1,48 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ "test" ]
+  pull_request:
+    branches: [ "test" ]
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: test
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_INITDB_ARGS: --encoding=UTF-8
+
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - env:
+          DATABASE_URL="postgresql://test:test@db:5432/test?schema=public"
+      - run: npm ci
+      - run: npx prisma migrate dev --name init
+      - run: npm run test
+      - run: npm run test:e2e
