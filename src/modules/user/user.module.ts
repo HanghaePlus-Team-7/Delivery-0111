@@ -18,6 +18,5 @@ import { CreateUserService } from "./service/create-user/create-user.service";
     PrismaService,
     UserRepository,
   ],
-  exports: [UserService],
 })
 export class UserModule {}
