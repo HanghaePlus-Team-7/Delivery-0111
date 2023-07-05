@@ -45,9 +45,11 @@ jobs:
       - run: npm ci
 
       - run: npx prisma migrate dev --name init
-        env: DATABASE_URL=postgresql://test:test@db:5432/test?schema=public
+        env:
+          DATABASE_URL: "postgresql://test:test@db:5432/test?schema=public"
 
       - run: npm run test
 
       - run: npm run test:e2e
-        env: DATABASE_URL=postgresql://test:test@db:5432/test?schema=public
+        env:
+          DATABASE_URL: "postgresql://test:test@db:5432/test?schema=public"
