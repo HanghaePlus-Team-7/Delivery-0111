@@ -1,49 +1,70 @@
 import { Test, TestingModule } from "@nestjs/testing";
-
-import { ConfirmOrdersDto } from "@orders/dto/request/confirm-orders.dto";
-import { OrdersController } from "@orders/orders.controller";
-import { CONFIRM_ORDER, ConfirmOrder } from "@orders/services/confirm-order/confirm-order.interface";
-import { ConfirmOrderService } from "@orders/services/confirm-order/confirm-order.service";
-import { USER } from "./service/user.interface";
-import { GetOrdersOfStoreService } from "@orders/services/get-orders-of-store/get-orders-of-store.service";
 import { UserController } from "./user.controller";
-import { UserService } from "./service/user.service";
+import { CreateUserDto } from "./dto/request/create-user.dto";
+import { CreateUserService } from "./service/create-user/create-user.service";
+import { PrismaService } from "@root/prisma/prisma.service";
 
-jest.mock("./service/user.service");
+jest.mock("./service/create-user/create-user.service");
+jest.mock("./user.controller");
 
 describe("UserController", () => {
-  //   let controller: OrdersController;
-  //   let confirmOrderService: ConfirmOrder;
-  //   let getOrdersOfStore: GetOrdersOfStore;
-
   let controller: UserController;
-  let userService: UserService;
+  let createUserService: CreateUserService;
+  let prismaService: PrismaService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UserController],
       providers: [
+        CreateUserService,
         {
-          provide: USER,
-          useClass: UserService,
+          provide: PrismaService,
+          useValue: {
+            user: {
+              create: jest.fn().mockResolvedValue({
+                // 'create' 메서드를 모의합니다.
+                id: "1",
+                email: "test@example.com",
+                password: "password",
+                nickname: "test",
+                phone: "01012341234",
+                address: "서울시 강남구",
+                createdAt: new Date(),
+                updatedAt: new Date(),
+              }),
+              findUnique: jest.fn().mockResolvedValue(null),
+            },
+          },
         },
       ],
     }).compile();
 
     controller = module.get<UserController>(UserController);
-    userService = module.get<UserService>(USER);
+    createUserService = module.get<CreateUserService>(CreateUserService);
+    prismaService = module.get<PrismaService>(PrismaService);
     jest.clearAllMocks();
   });
 
-  //   describe("주문 전체 조회 (getOrdersOfStore)", () => {
-  //     it("주문 전체 조회 서비스를 가게의 아이디로 실행하나?", async () => {
-  //       const storeId = "1";
+  describe("유저", () => {
+    it("유저 회원가입을 실행하나?", async () => {
+      const userForm = CreateUserDto.of({
+        nickname: "test",
+        email: "asdfAasdaSD421asdl@gmail.com",
+        password: "asdf1234!@#",
+        phone: "01012341234",
+        address: "서울시 강남구",
+      });
 
-  //       getOrdersOfStore.execute = jest.fn();
+      const result = await controller.createUser(userForm);
+      console.log("result", result);
+      expect(result).toEqual(userForm);
 
-  //       await controller.getOrdersOfStore(storeId);
-  //       expect(getOrdersOfStore.execute).toBeCalledTimes(1);
-  //       expect(getOrdersOfStore.execute).toBeCalledWith(BigInt(storeId));
-  //     });
-  //   });
+      //   expect(prismaService.user.create).toBeCalledTimes(1); // PrismaService의 'create' 메서드가 호출되었는지 확인합니다.
+      //   expect(prismaService.user.create).toBeCalledWith({
+      //     data: {
+      //       ...userForm,
+      //     },
+      //   }); // 'create' 메서드가 올바른 인자로 호출되었는지 확인합니다.
+    });
+  });
 });

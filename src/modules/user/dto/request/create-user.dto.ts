@@ -34,6 +34,6 @@ export class CreateUserDto {
   }
 
   public toEntity() {
-    return new UserEntity(this);
+    return new UserEntity({});
   }
 }
