@@ -48,7 +48,7 @@ jobs:
           touch .env
 
       - name: Set database with ORM
-        run: npx prisma migrate dev --init
+        run: npx prisma migrate dev
 
       - name: build server
         working-directory: ./src/main
