@@ -40,7 +40,8 @@ jobs:
 
       - name: Set server
         run: npm i
-        run: npm ci
+
+      - run: npm ci
 
       - name: create env
         run: |
