@@ -37,8 +37,13 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
 
         run: |
-          echo "test"
           echo "DATABASE_URL=${{ secrets.PBT_DATABASE_URL }}" >> .env
+          echo "NODE_ENV=production" >> .env
+          echo "CLOUDWATCH_GROUP_NAME=${{ secrets.CLOUDWATCH_GROUP_NAME }}" >> .env
+          echo "CLOUDWATCH_ACCESS_KEY=${{ secrets.PBT_AWS_ACCESS_KEY_ID }}" >> .env
+          echo "CLOUDWATCH_SECRET_ACCESS_KEY=${{ secrets.PBT_AWS_SECRET_ACCESS_KEY }}" >> .env
+          echo "CLOUDWATCH_REGION=${{ secrets.AWS_REGION }}" >> .env
+          
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
