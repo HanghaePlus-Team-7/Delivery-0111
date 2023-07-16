@@ -37,7 +37,7 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
 
         run: |
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+          echo "DATABASE_URL=${{ secrets.PBT_DATABASE_URL }}" >> .env
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
@@ -47,7 +47,7 @@ jobs:
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: task-definition.json
-          container-name: container-nestjs
+          container-name: delivery-0111
           image: ${{ steps.build-image.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
