@@ -37,6 +37,7 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
 
         run: |
+          echo "test"
           echo "DATABASE_URL=${{ secrets.PBT_DATABASE_URL }}" >> .env
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
