@@ -1,7 +1,7 @@
-import { AddCartDto } from "@cart/dto/cart.dto";
+import { AddCartDto } from "@cart/dto/request/add-cart.dto";
 
 export interface AddCart {
-  execute: (addCartDto: AddCartDto) => Promise<string>;
+  execute: (addCartDto: AddCartDto) => Promise<void>;
 }
 
 // Symbol : 고유하면서 수정할 수 없는 값, 즉 식별자
