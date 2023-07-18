@@ -1,8 +1,8 @@
-import { Body, Controller, Post, Param, Delete, UsePipes, ValidationPipe, Get, Inject } from "@nestjs/common";
+import { Body, Controller, Post, Param, UsePipes, ValidationPipe, Get, Inject } from "@nestjs/common";
 
 import { CreateUserDto } from "./dto/request/create-user.dto";
-import { UserService } from "./service/user.service";
 import { CREATE_USER, CreateUser } from "./service/create-user/create-user.interface";
+import { UserService } from "./service/user.service";
 
 @Controller("user")
 export class UserController {

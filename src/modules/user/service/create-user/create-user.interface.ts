@@ -1,8 +1,6 @@
 import { CreateUserDto } from "../../dto/request/create-user.dto";
 export interface CreateUser {
-  execute(
-    createUserDto: CreateUserDto,
-  ): Promise<{
+  execute(createUserDto: CreateUserDto): Promise<{
     id: string;
     email: string;
     password: string;

@@ -1,4 +1,4 @@
-import { IsNotEmpty, MinLength, IsString, IsEmail, Matches } from "class-validator";
+import { IsNotEmpty, IsString, IsEmail, Matches } from "class-validator";
 
 export class LoginRequest {
   @IsNotEmpty()

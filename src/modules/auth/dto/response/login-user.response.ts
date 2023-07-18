@@ -1,9 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
+
 import { User } from "@prisma/client";
 import { Exclude, Expose } from "class-transformer";
 
 export class LoginUserResponse {
-  @Exclude() private readonly _id: BigInt;
+  @Exclude() private readonly _id: bigint;
   email: string;
   password: string;
   nickname: string;

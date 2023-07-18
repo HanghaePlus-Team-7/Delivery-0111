@@ -1,6 +1,8 @@
-import { PrismaService } from "../../prisma/prisma.service";
 import { Injectable } from "@nestjs/common";
-import { CreateStoreRequest, CreateStoreResponse } from "./dto";
+
+import { PrismaService } from "../../prisma/prisma.service";
+
+import { CreateStoreRequest } from "./dto";
 
 @Injectable()
 export class StoreRepository {

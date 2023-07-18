@@ -1,8 +1,7 @@
-import { ConflictException, HttpException, Injectable } from "@nestjs/common";
+import { HttpException, Injectable } from "@nestjs/common";
 
 import { CreateUserDto } from "@root/modules/user/dto/request/create-user.dto";
-import { UserEntity } from "@root/modules/user/entities/user.entity";
-import { PrismaService } from "@root/prisma/prisma.service";
+
 import { UserRepository } from "@user/user.repository";
 
 @Injectable()

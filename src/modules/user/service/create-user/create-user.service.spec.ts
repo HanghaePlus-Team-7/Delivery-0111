@@ -1,7 +1,9 @@
-import { CREATE_USER } from "./create-user.interface";
-import { UserRepository } from "../../user.repository";
-import { CreateUserDto } from "../../dto/request/create-user.dto";
 import { Test, TestingModule } from "@nestjs/testing";
+
+import { CreateUserDto } from "../../dto/request/create-user.dto";
+import { UserRepository } from "../../user.repository";
+
+import { CREATE_USER } from "./create-user.interface";
 import { CreateUserService } from "./create-user.service";
 
 jest.mock("@user/user.repository");

@@ -1,10 +1,11 @@
-import { HttpException, Injectable, UnauthorizedException } from "@nestjs/common";
+import { HttpException, Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { LoginRequest } from "../dto/request/login.request";
-import { JwtPayload } from "../dto/jwt-payload";
+
 import { User } from "@prisma/client";
-import { LoginUserResponse } from "../dto/response/login-user.response";
+
 import { AuthRepository } from "../auth.repository";
+import { JwtPayload } from "../dto/jwt-payload";
+import { LoginRequest } from "../dto/request/login.request";
 
 @Injectable()
 export class AuthService {

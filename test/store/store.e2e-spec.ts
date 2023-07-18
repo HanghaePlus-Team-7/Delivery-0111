@@ -1,8 +1,11 @@
+import { log } from "console";
+
 import { INestApplication } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
+
 import * as request from "supertest";
+
 import { AppModule } from "../../src/app.module";
-import { log } from "console";
 
 describe("store (e2e)", () => {
   let app: INestApplication;
