@@ -1,10 +1,12 @@
 import { INestApplication } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
+
+import { JsonWebTokenError, NotBeforeError, TokenExpiredError, verify } from "jsonwebtoken";
 import * as request from "supertest";
 
-import { AppModule } from "../../src/app.module";
-import { JsonWebTokenError, NotBeforeError, TokenExpiredError, verify } from "jsonwebtoken";
 import authConfig from "@root/modules/auth/auth.config";
+
+import { AppModule } from "../../src/app.module";
 
 describe("auth (e2e)", () => {
   let app: INestApplication;

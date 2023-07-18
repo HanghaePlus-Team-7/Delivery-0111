@@ -1,9 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
+
 import { Store } from "@prisma/client";
 import { Exclude, Expose } from "class-transformer";
 
 export class CreateStoreResponse {
-  @Exclude() private readonly id: BigInt;
+  @Exclude() private readonly id: bigint;
   email: string;
   password: string;
   name: string;

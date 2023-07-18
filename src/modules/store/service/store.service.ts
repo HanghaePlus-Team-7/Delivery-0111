@@ -1,6 +1,7 @@
 import { HttpException, Injectable } from "@nestjs/common";
-import { StoreRepository } from "../store.repository";
+
 import { CreateStoreRequest } from "../dto";
+import { StoreRepository } from "../store.repository";
 
 @Injectable()
 export class StoreService {

@@ -1,10 +1,10 @@
+import { UserEntity } from "@root/modules/user/entities/user.entity";
+
 import { OrderStatus } from "@orders/entities/order-status";
 
 import { ProductsEntity } from "@products/products.entity";
 
 import { StoreEntity } from "@store/store.entity";
-
-import { UserEntity } from "@root/modules/user/entities/user.entity";
 
 export class OrdersEntity {
   id: bigint;

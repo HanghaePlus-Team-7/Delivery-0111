@@ -1,6 +1,8 @@
-import { PrismaService } from "../../prisma/prisma.service";
 import { HttpException, Injectable } from "@nestjs/common";
+
 import { CreateUserDto } from "@root/modules/user/dto/request/create-user.dto";
+
+import { PrismaService } from "../../prisma/prisma.service";
 
 @Injectable()
 export class UserRepository {

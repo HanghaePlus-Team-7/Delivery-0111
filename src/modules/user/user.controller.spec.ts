@@ -1,8 +1,10 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { UserController } from "./user.controller";
+
+import { PrismaService } from "@root/prisma/prisma.service";
+
 import { CreateUserDto } from "./dto/request/create-user.dto";
 import { CreateUserService } from "./service/create-user/create-user.service";
-import { PrismaService } from "@root/prisma/prisma.service";
+import { UserController } from "./user.controller";
 
 jest.mock("./service/create-user/create-user.service");
 jest.mock("./user.controller");

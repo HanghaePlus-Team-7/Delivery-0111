@@ -1,8 +1,11 @@
-import { JwtService } from "@nestjs/jwt";
-import { PrismaService } from "../../prisma/prisma.service";
 import { Injectable, UnauthorizedException } from "@nestjs/common";
-import { JwtPayload, LoginRequest } from "./dto";
+import { JwtService } from "@nestjs/jwt";
+
 import { User } from "@prisma/client";
+
+import { PrismaService } from "../../prisma/prisma.service";
+
+import { JwtPayload, LoginRequest } from "./dto";
 import { LoginUserResponse } from "./dto/response/login-user.response";
 
 @Injectable()

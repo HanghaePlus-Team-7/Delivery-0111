@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsString, Length, IsEmail, Matches } from "class-validator";
+import { IsNotEmpty, IsString, IsEmail, Matches } from "class-validator";
+
 import { UserEntity } from "../../entities/user.entity";
 
 export class CreateUserDto {
