@@ -1,23 +1,22 @@
 import { Transform } from "class-transformer";
 import { IsNotEmpty } from "class-validator";
 
-import { OrdersEntity } from "@orders/entities/orders.entity";
+import { ConfirmOrdersCommand } from "@orders/dto/command/confirm-orders.command";
 
 export class ConfirmOrdersDto {
   @IsNotEmpty()
   @Transform(({ value }) => BigInt(value))
   orderId: bigint;
 
-  constructor() {}
-
-  static of(params: Partial<ConfirmOrdersDto>) {
-    const confirmOrdersDto = new ConfirmOrdersDto();
-    Object.assign(confirmOrdersDto, params);
-
-    return confirmOrdersDto;
+  constructor(params: Partial<ConfirmOrdersDto>) {
+    Object.assign(this, params);
   }
 
-  public toEntity() {
-    return OrdersEntity.forConfirmOrder(this.orderId);
+  static of(params: Partial<ConfirmOrdersDto>) {
+    return new ConfirmOrdersDto(params);
+  }
+
+  public toCommand() {
+    return new ConfirmOrdersCommand(this.orderId);
   }
 }

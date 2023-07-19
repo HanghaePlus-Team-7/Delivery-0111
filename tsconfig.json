@@ -18,7 +18,9 @@
       "@products/*": ["./src/modules/products/*"],
       "@reviews/*": ["./src/modules/reviews/*"],
       "@store/*": ["./src/modules/store/*"],
-      "@user/*": ["./src/modules/user/*"]
+      "@user/*": ["./src/modules/user/*"],
+      "@auth/*": ["./src/modules/auth/*"],
+      "@notification/*": ["./src/modules/notification/*"]
     },
     "incremental": true,
     "skipLibCheck": true,

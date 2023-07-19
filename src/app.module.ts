@@ -15,7 +15,9 @@ import { StoreModule } from "@store/store.module";
 
 import { UserModule } from "@user/user.module";
 
-import { AuthModule } from "./modules/auth/auth.module";
+import { AuthModule } from "@auth/auth.module";
+
+import { NotificationModule } from "@notification/notification.module";
 
 @Module({
   imports: [
@@ -27,6 +29,7 @@ import { AuthModule } from "./modules/auth/auth.module";
     CartModule,
     AuthModule,
     new WinstonLogger().getRequestLogger(),
+    NotificationModule,
   ],
 })
 export class AppModule implements NestModule {

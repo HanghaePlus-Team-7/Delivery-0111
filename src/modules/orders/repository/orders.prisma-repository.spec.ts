@@ -5,18 +5,18 @@ import { PrismaService } from "@root/prisma/prisma.service";
 import { OrderStatus } from "@orders/entities/order-status";
 import { OrdersEntity } from "@orders/entities/orders.entity";
 
-import { OrdersRepository } from "./orders.repository";
+import { OrdersPrismaRepository } from "./orders.prisma-repository";
 
 describe("Orders", () => {
-  let ordersRepository: OrdersRepository;
+  let ordersRepository: OrdersPrismaRepository;
   let prismaService: PrismaService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [OrdersRepository, PrismaService],
+      providers: [OrdersPrismaRepository, PrismaService],
     }).compile();
 
-    ordersRepository = module.get<OrdersRepository>(OrdersRepository);
+    ordersRepository = module.get<OrdersPrismaRepository>(OrdersPrismaRepository);
     prismaService = module.get<PrismaService>(PrismaService);
   });
 

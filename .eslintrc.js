@@ -67,6 +67,16 @@ module.exports = {
             group: "internal",
             position: "after",
           },
+          {
+            pattern: "@auth/**",
+            group: "internal",
+            position: "after",
+          },
+          {
+            pattern: "@notification/**",
+            group: "internal",
+            position: "after",
+          },
         ],
         pathGroupsExcludedImportTypes: [],
         alphabetize: {
