@@ -1,7 +1,7 @@
-import { OrdersEntity } from "@orders/entities/orders.entity";
+import { OrderStatus } from "@orders/entities/order-status";
 
 export interface OrdersRepository {
-  updateOrderStatus: ({ id, status }: OrdersEntity) => Promise<void>;
+  updateOrderStatus: (id: bigint, status: OrderStatus, confirmedOrderAt: Date) => Promise<void>;
   getOrdersOfStore: (id: bigint) => Promise<any[]>;
 }
 
