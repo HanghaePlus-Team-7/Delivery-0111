@@ -1,11 +1,11 @@
 import { Test, TestingModule } from "@nestjs/testing";
 
+import { ConfirmOrdersRequest } from "@orders/controller/dto/confirm-orders.request";
 import { OrdersController } from "@orders/controller/orders.controller";
-import { ConfirmOrdersDto } from "@orders/dto/request/confirm-orders.dto";
 import { ORDERS_SERVICE, OrdersService } from "@orders/service/orders.service";
 import { OrdersServiceImpl } from "@orders/service/orders.service-impl";
 
-jest.mock("./services/confirm-order/confirm-order.service");
+jest.mock("@orders/service/orders.service-impl");
 
 describe("OrdersController", () => {
   let controller: OrdersController;
@@ -23,7 +23,7 @@ describe("OrdersController", () => {
     }).compile();
 
     controller = module.get<OrdersController>(OrdersController);
-    ordersService = module.get<OrdersServiceImpl>(ORDERS_SERVICE);
+    ordersService = module.get<OrdersService>(ORDERS_SERVICE);
 
     jest.clearAllMocks();
   });
@@ -31,11 +31,13 @@ describe("OrdersController", () => {
   describe("주문 확정 (confirmOrder)", () => {
     it("주문 확정 서비스를 ConfirmOrdersDto의 인스턴스를 argument로 호출하나?", async () => {
       const orderId = 1n;
-      const confirmOrdersDto = ConfirmOrdersDto.of({ orderId });
+      const confirmOrdersDto = ConfirmOrdersRequest.of({ orderId });
+
+      ordersService.confirmOrder = jest.fn();
 
       await controller.confirmOrder(confirmOrdersDto);
       expect(ordersService.confirmOrder).toBeCalledTimes(1);
-      expect(ordersService.confirmOrder).toBeCalledWith(confirmOrdersDto);
+      expect(ordersService.confirmOrder).toBeCalledWith(confirmOrdersDto.toDto());
     });
   });
 

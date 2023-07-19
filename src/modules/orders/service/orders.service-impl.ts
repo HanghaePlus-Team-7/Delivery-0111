@@ -2,7 +2,7 @@ import { Inject, Injectable } from "@nestjs/common";
 
 import { NOTIFICATION_SERVICE, NotificationService } from "@root/modules/notification/notification.service";
 
-import { ConfirmOrdersCommand } from "@orders/dto/command/confirm-orders.command";
+import { UpdateOrderStatusCommand } from "@orders/service/dto/update-order-status.command";
 import { OrdersService } from "@orders/service/orders.service";
 import { CONFIRM_ORDER, ConfirmOrder } from "@orders/usecase/confirm-order/confirm-order";
 import { GET_ORDERS_OF_STORE, GetOrdersOfStore } from "@orders/usecase/get-orders-of-store/get-orders-of-store";
@@ -15,9 +15,9 @@ export class OrdersServiceImpl implements OrdersService {
     @Inject(GET_ORDERS_OF_STORE) private readonly getOrdersOfStoreUseCase: GetOrdersOfStore,
   ) {}
 
-  async confirmOrder(confirmOrdersCommand: ConfirmOrdersCommand): Promise<void> {
-    await this.confirmOrderUseCase.execute(confirmOrdersCommand);
-    await this.notificationService.sendNotification(confirmOrdersCommand.toNotification());
+  async confirmOrder(updateOrderStatusCommand: UpdateOrderStatusCommand): Promise<void> {
+    await this.confirmOrderUseCase.execute(updateOrderStatusCommand.toConfirmOrderEntity());
+    await this.notificationService.sendNotification(updateOrderStatusCommand.toNotification());
   }
 
   async getOrdersOfStore(id: bigint): Promise<any[]> {

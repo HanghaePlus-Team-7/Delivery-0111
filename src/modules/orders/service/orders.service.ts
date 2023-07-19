@@ -1,7 +1,7 @@
-import { ConfirmOrdersCommand } from "@orders/dto/command/confirm-orders.command";
+import { UpdateOrderStatusCommand } from "@orders/service/dto/update-order-status.command";
 
 export interface OrdersService {
-  confirmOrder: (command: ConfirmOrdersCommand) => Promise<void>;
+  confirmOrder: (command: UpdateOrderStatusCommand) => Promise<void>;
   getOrdersOfStore: (id: bigint) => Promise<any[]>;
 }
 

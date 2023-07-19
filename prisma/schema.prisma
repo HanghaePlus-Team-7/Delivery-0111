@@ -74,18 +74,23 @@ model Product {
 }
 
 model Order {
-  id            BigInt       @id @default(autoincrement())
-  paymentType   String       @map("payment_type") @db.VarChar(50)
-  status        String       @db.VarChar(50)
-  paymentStatus String       @map("payment_status") @db.VarChar(50)
-  paidAt        DateTime     @map("paid_at") @db.Timestamptz(0)
-  createdAt     DateTime     @default(now()) @map("created_at") @db.Timestamptz(0)
-  updatedAt     DateTime     @updatedAt @map("updated_at") @db.Timestamptz(0)
-  user          User         @relation(fields: [userId], references: [id])
-  userId        BigInt       @map("user_id")
-  store         Store        @relation(fields: [storeId], references: [id])
-  storeId       BigInt       @map("store_id")
-  OrderSheet    OrderSheet[]
+  id                  BigInt       @id @default(autoincrement())
+  paymentType         String       @map("payment_type") @db.VarChar(50)
+  status              String       @db.VarChar(50)
+  paymentStatus       String       @map("payment_status") @db.VarChar(50)
+  paidAt              DateTime     @map("paid_at") @db.Timestamptz(0)
+  receptedOrderAt     DateTime?    @map("recepted_order_at") @db.Timestamptz(0)
+  confirmedOrderAt    DateTime?    @map("confirmed_order_at") @db.Timestamptz(0)
+  canceledOrderAt     DateTime?    @map("canceled_order_at") @db.Timestamptz(0)
+  deliveryStartedAt   DateTime?    @map("delivery_started_at") @db.Timestamptz(0)
+  deliveryCompletedAt DateTime?    @map("delivery_completed_at") @db.Timestamptz(0)
+  createdAt           DateTime     @default(now()) @map("created_at") @db.Timestamptz(0)
+  updatedAt           DateTime     @updatedAt @map("updated_at") @db.Timestamptz(0)
+  user                User         @relation(fields: [userId], references: [id])
+  userId              BigInt       @map("user_id")
+  store               Store        @relation(fields: [storeId], references: [id])
+  storeId             BigInt       @map("store_id")
+  OrderSheet          OrderSheet[]
 
   @@map("order")
 }

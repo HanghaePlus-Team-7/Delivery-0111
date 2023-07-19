@@ -4,14 +4,14 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 import { PrismaService } from "@root/prisma/prisma.service";
 
-import { OrdersEntity } from "@orders/entities/orders.entity";
+import { OrderStatus } from "@orders/entities/order-status";
 import { OrdersRepository } from "@orders/repository/orders.repository";
 
 @Injectable()
 export class OrdersPrismaRepository implements OrdersRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async updateOrderStatus({ id, status }: OrdersEntity): Promise<void> {
+  async updateOrderStatus(id: bigint, status: OrderStatus, confirmedOrderAt: Date): Promise<void> {
     try {
       await this.prismaService.order.update({
         where: {
@@ -19,6 +19,7 @@ export class OrdersPrismaRepository implements OrdersRepository {
         },
         data: {
           status,
+          confirmedOrderAt,
         },
       });
     } catch (e) {

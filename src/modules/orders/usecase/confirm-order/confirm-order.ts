@@ -1,7 +1,7 @@
-import { ConfirmOrdersCommand } from "@orders/dto/command/confirm-orders.command";
+import { ConfirmOrder as ConfirmOrderType } from "@orders/entities/orders.type";
 
 export interface ConfirmOrder {
-  execute: (command: ConfirmOrdersCommand) => Promise<void>;
+  execute: (entity: ConfirmOrderType) => Promise<void>;
 }
 
 export const CONFIRM_ORDER = Symbol("CONFIRM_ORDER");

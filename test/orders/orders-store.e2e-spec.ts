@@ -112,6 +112,19 @@ describe("주문 매장 (e2e)", () => {
       });
       expect(result?.status).toBe(OrderStatus.CONFIRMED);
     });
+
+    it("주문 확정 성공하면 DB에서 주문확정 시간이 생성되나??", async () => {
+      await request(app.getHttpServer()).patch(`/orders/${order.id}/confirmation`);
+      const result = await prisma.order.findUnique({
+        select: {
+          confirmedOrderAt: true,
+        },
+        where: {
+          id: order.id,
+        },
+      });
+      expect(result).toHaveProperty("confirmedOrderAt");
+    });
   });
 
   describe("주문 전체 조회", () => {
