@@ -4,7 +4,7 @@ import { CartRepository } from "@cart/cart.repository";
 import { AddCartDto } from "@cart/dto/request/add-cart.dto";
 import { AddCart } from "@cart/services/add-cart/add-cart.interface";
 
-jest.mock("@cart/cart.repository");
+// jest.mock("@cart/cart.repository");
 
 // @Injectable()
 // export class AddCartService {

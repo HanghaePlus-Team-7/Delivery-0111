@@ -1,22 +1,22 @@
 import { Test, TestingModule } from "@nestjs/testing";
 
-import { OrdersRepository } from "@orders/orders.repository";
+import { OrdersPrismaRepository } from "@orders/repository/orders.prisma-repository";
 
-import { GetOrdersOfStoreService } from "./get-orders-of-store.service";
+import { GetOrdersOfStoreImpl } from "./get-orders-of-store-impl";
 
 jest.mock("@orders/orders.repository");
 
 describe("GetOrdersOfStoreService", () => {
-  let service: GetOrdersOfStoreService;
-  let repository: OrdersRepository;
+  let service: GetOrdersOfStoreImpl;
+  let repository: OrdersPrismaRepository;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [GetOrdersOfStoreService, OrdersRepository],
+      providers: [GetOrdersOfStoreImpl, OrdersPrismaRepository],
     }).compile();
 
-    service = module.get<GetOrdersOfStoreService>(GetOrdersOfStoreService);
-    repository = module.get<OrdersRepository>(OrdersRepository);
+    service = module.get<GetOrdersOfStoreImpl>(GetOrdersOfStoreImpl);
+    repository = module.get<OrdersPrismaRepository>(OrdersPrismaRepository);
   });
 
   it("ordersRepository.getOrdersOfStore 실행함? ", async () => {

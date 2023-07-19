@@ -17,14 +17,14 @@
     "test:watch": "jest --watch --verbose",
     "test:cov": "jest --coverage --verbose",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand --verbose",
-    "test:e2e": "jest --config ./test/jest-e2e.json --verbose",
-    "test:e2e:orders": "jest --config ./test/orders/jest-e2e.json --verbose",
-    "test:e2e:products": "jest --config ./test/products/jest-e2e.json --verbose",
-    "test:e2e:reviews": "jest --config ./test/reviews/jest-e2e.json --verbose",
-    "test:e2e:cart": "jest --config test/cart/jest-e2e.json --verbose",
-    "test:e2e:store": "jest --config ./test/store/jest-e2e.json --verbose",
-    "test:e2e:user": "jest --config ./test/user/jest-e2e.json --verbose",
-    "test:e2e:auth": "jest --config ./test/auth/jest-e2e.json --verbose"
+    "test:e2e": "jest --config ./test/jest-e2e.ts",
+    "test:e2e:orders": "jest --config ./test/orders/jest-e2e.ts",
+    "test:e2e:products": "jest --config ./test/products/jest-e2e.ts",
+    "test:e2e:reviews": "jest --config ./test/reviews/jest-e2e.ts",
+    "test:e2e:cart": "jest --config test/cart/jest-e2e.ts",
+    "test:e2e:store": "jest --config ./test/store/jest-e2e.ts",
+    "test:e2e:user": "jest --config test/user/jest-e2e.ts --verbose",
+    "test:e2e:auth": "jest --config ./test/auth/jest-e2e.ts"
   },
   "dependencies": {
     "@nestjs/core": "^10.0.0",
@@ -74,6 +74,7 @@
     "typescript": "^5.1.3"
   },
   "jest": {
+    "verbose": true,
     "moduleFileExtensions": [
       "js",
       "json",
@@ -96,7 +97,9 @@
       "^@products/(.*)$": "<rootDir>/modules/products/$1",
       "^@reviews/(.*)$": "<rootDir>/modules/reviews/$1",
       "^@store/(.*)$": "<rootDir>/modules/store/$1",
-      "^@user/(.*)$": "<rootDir>/modules/user/$1"
+      "^@user/(.*)$": "<rootDir>/modules/user/$1",
+      "^@auth/(.*)$": "<rootDir>/modules/auth/$1",
+      "^@notification/(.*)$": "<rootDir>/modules/notification/$1"
     }
   }
 }
