@@ -95,10 +95,10 @@
     "testEnvironment": "node",
     "moduleNameMapper": {
       "^@root/(.*)$": "<rootDir>/$1",
-      "^@orders/(.*)$": "<rootDir>/modules/orders/$1",
+      "^@order/(.*)$": "<rootDir>/modules/order/$1",
       "^@cart/(.*)$": "<rootDir>/modules/cart/$1",
-      "^@products/(.*)$": "<rootDir>/modules/products/$1",
-      "^@reviews/(.*)$": "<rootDir>/modules/reviews/$1",
+      "^@product/(.*)$": "<rootDir>/modules/product/$1",
+      "^@review/(.*)$": "<rootDir>/modules/review/$1",
       "^@store/(.*)$": "<rootDir>/modules/store/$1",
       "^@user/(.*)$": "<rootDir>/modules/user/$1",
       "^@auth/(.*)$": "<rootDir>/modules/auth/$1",
