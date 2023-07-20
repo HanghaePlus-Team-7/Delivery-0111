@@ -1,20 +1,19 @@
 import { Module } from "@nestjs/common";
 
-import { NOTIFICATION_SERVICE } from "@notification/notification.service";
-
-import { NotificationServiceImpl } from "./notification.service-impl";
+import { SEND_NOTIFICATION } from "@notification/usecase/send-notification";
+import { SendNotificationImpl } from "@notification/usecase/send-notification-impl";
 
 @Module({
   providers: [
     {
-      provide: NOTIFICATION_SERVICE,
-      useClass: NotificationServiceImpl,
+      provide: SEND_NOTIFICATION,
+      useClass: SendNotificationImpl,
     },
   ],
   exports: [
     {
-      provide: NOTIFICATION_SERVICE,
-      useClass: NotificationServiceImpl,
+      provide: SEND_NOTIFICATION,
+      useClass: SendNotificationImpl,
     },
   ],
 })

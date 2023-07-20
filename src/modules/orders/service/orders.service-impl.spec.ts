@@ -8,8 +8,8 @@ import { ConfirmOrderImpl } from "@orders/usecase/confirm-order/confirm-order-im
 import { GET_ORDERS_OF_STORE, GetOrdersOfStore } from "@orders/usecase/get-orders-of-store/get-orders-of-store";
 import { GetOrdersOfStoreImpl } from "@orders/usecase/get-orders-of-store/get-orders-of-store-impl";
 
-import { NOTIFICATION_SERVICE, NotificationService } from "@notification/notification.service";
-import { NotificationServiceImpl } from "@notification/notification.service-impl";
+import { SEND_NOTIFICATION, SendNotification } from "@notification/usecase/send-notification";
+import { SendNotificationImpl } from "@notification/usecase/send-notification-impl";
 
 import { OrdersServiceImpl } from "./orders.service-impl";
 
@@ -19,7 +19,7 @@ jest.mock("@notification/notification.service-impl");
 
 describe("OrdersService", () => {
   let service: OrdersService;
-  let notificationService: NotificationService;
+  let notificationService: SendNotification;
   let confirmOrderUseCase: ConfirmOrder;
   let getOrdersOfStoreUseCase: GetOrdersOfStore;
 
@@ -28,8 +28,8 @@ describe("OrdersService", () => {
       providers: [
         { provide: ORDERS_SERVICE, useClass: OrdersServiceImpl },
         {
-          provide: NOTIFICATION_SERVICE,
-          useClass: NotificationServiceImpl,
+          provide: SEND_NOTIFICATION,
+          useClass: SendNotificationImpl,
         },
         {
           provide: CONFIRM_ORDER,
@@ -43,7 +43,7 @@ describe("OrdersService", () => {
     }).compile();
 
     service = module.get<OrdersService>(ORDERS_SERVICE);
-    notificationService = module.get<NotificationService>(NOTIFICATION_SERVICE);
+    notificationService = module.get<SendNotification>(SEND_NOTIFICATION);
     confirmOrderUseCase = module.get<ConfirmOrder>(CONFIRM_ORDER);
     getOrdersOfStoreUseCase = module.get<GetOrdersOfStore>(GET_ORDERS_OF_STORE);
   });
@@ -61,8 +61,8 @@ describe("OrdersService", () => {
 
     it("confirmOrder 실행하면 notificationService 실행함?", async () => {
       await service.confirmOrder(updateOrderStatusCommand);
-      expect(notificationService.sendNotification).toBeCalledTimes(1);
-      expect(notificationService.sendNotification).toBeCalledWith(updateOrderStatusCommand.toNotification());
+      expect(notificationService.execute).toBeCalledTimes(1);
+      expect(notificationService.execute).toBeCalledWith(updateOrderStatusCommand.toNotification());
     });
   });
 });
