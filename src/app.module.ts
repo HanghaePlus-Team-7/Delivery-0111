@@ -1,15 +1,14 @@
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 
-import { LoggerMiddleware } from "@root/middleware/logger.middleware";
-import { WinstonLogger } from "@root/middleware/winston-logger";
+import { LoggerMiddleware } from "@root/middleware/logger/logger.middleware";
 
 import { CartModule } from "@cart/cart.module";
 
-import { OrdersModule } from "@orders/orders.module";
+import { OrderModule } from "@order/order.module";
 
-import { ProductsModule } from "@products/products.module";
+import { ProductModule } from "@product/product.module";
 
-import { ReviewsModule } from "@reviews/reviews.module";
+import { ReviewModule } from "@review/review.module";
 
 import { StoreModule } from "@store/store.module";
 
@@ -23,12 +22,11 @@ import { NotificationModule } from "@notification/notification.module";
   imports: [
     UserModule,
     StoreModule,
-    ProductsModule,
-    OrdersModule,
-    ReviewsModule,
+    ProductModule,
+    OrderModule,
+    ReviewModule,
     CartModule,
     AuthModule,
-    new WinstonLogger().getRequestLogger(),
     NotificationModule,
   ],
 })

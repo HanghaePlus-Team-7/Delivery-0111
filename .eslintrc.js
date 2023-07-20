@@ -43,17 +43,17 @@ module.exports = {
             position: "after",
           },
           {
-            pattern: "@orders/**",
+            pattern: "@order/**",
             group: "internal",
             position: "after",
           },
           {
-            pattern: "@products/**",
+            pattern: "@product/**",
             group: "internal",
             position: "after",
           },
           {
-            pattern: "@reviews/**",
+            pattern: "@review/**",
             group: "internal",
             position: "after",
           },

@@ -5,10 +5,10 @@ import { Order, PrismaClient, Product, Store, User } from "@prisma/client";
 import request from "supertest";
 
 import { AppModule } from "@root/app.module";
-import { setNestApp } from "@root/common/set-nest-app";
+import { setNestApp } from "@root/libs/common/set-nest-app";
 import { PrismaService } from "@root/prisma/prisma.service";
 
-import { OrderStatus } from "@orders/entities/order-status";
+import { OrderStatus } from "@order/entity/order-status";
 
 import { truncateTable } from "../truncate-table";
 

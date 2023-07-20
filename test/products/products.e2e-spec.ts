@@ -8,9 +8,9 @@ import { Store } from "@prisma/client";
 import request from "supertest";
 
 import { AppModule } from "@root/app.module";
-import { setNestApp } from "@root/common/set-nest-app";
+import { setNestApp } from "@root/libs/common/set-nest-app";
+import { isExistFile } from "@root/libs/utils/is-exist-file";
 import { PrismaService } from "@root/prisma/prisma.service";
-import { isExistFile } from "@root/utils/is-exist-file";
 
 import { truncateTable } from "../truncate-table";
 

@@ -14,9 +14,9 @@
     "paths": {
       "@root/*": ["./src/*"],
       "@cart/*": ["./src/modules/cart/*"],
-      "@orders/*": ["./src/modules/orders/*"],
-      "@products/*": ["./src/modules/products/*"],
-      "@reviews/*": ["./src/modules/reviews/*"],
+      "@order/*": ["./src/modules/order/*"],
+      "@product/*": ["./src/modules/product/*"],
+      "@review/*": ["./src/modules/review/*"],
       "@store/*": ["./src/modules/store/*"],
       "@user/*": ["./src/modules/user/*"],
       "@auth/*": ["./src/modules/auth/*"],
