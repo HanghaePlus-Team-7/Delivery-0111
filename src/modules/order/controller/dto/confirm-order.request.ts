@@ -1,13 +1,12 @@
-import { Transform } from "class-transformer";
-import { IsNotEmpty } from "class-validator";
+import { IsNotEmpty, IsUUID } from "class-validator";
 
 import { OrderMessage } from "@order/entity/order-message";
 import { UpdateOrderStatusCommand } from "@order/service/dto/update-order-status.command";
 
 export class ConfirmOrderRequest {
   @IsNotEmpty()
-  @Transform(({ value }) => BigInt(value))
-  orderId: bigint;
+  @IsUUID(4)
+  orderId: string;
 
   constructor(params: Partial<ConfirmOrderRequest>) {
     Object.assign(this, params);

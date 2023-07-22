@@ -2,13 +2,13 @@ import { IsNotEmpty } from "class-validator";
 
 export class CartDto {
   @IsNotEmpty()
-  id: bigint;
+  id: string;
 
   @IsNotEmpty()
-  userId: bigint;
+  userId: string;
 
   @IsNotEmpty()
-  productId: bigint;
+  productId: string;
 
   @IsNotEmpty()
   amount: number;

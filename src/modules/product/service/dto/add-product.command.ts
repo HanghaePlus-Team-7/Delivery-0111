@@ -2,10 +2,10 @@ export class AddProductCommand {
   private readonly _name: string;
   private readonly _price: number;
   private readonly _description: string;
-  private readonly _storeId: bigint;
+  private readonly _storeId: string;
   private readonly _photo: string;
 
-  constructor(params: { name: string; price: number; description: string; storeId: bigint; photo: string }) {
+  constructor(params: { name: string; price: number; description: string; storeId: string; photo: string }) {
     this._name = params.name;
     this._price = params.price;
     this._description = params.description;
@@ -25,7 +25,7 @@ export class AddProductCommand {
     return this._description;
   }
 
-  get storeId(): bigint {
+  get storeId(): string {
     return this._storeId;
   }
 

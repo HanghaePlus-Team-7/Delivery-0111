@@ -20,7 +20,7 @@ export class OrderServiceImpl implements OrderService {
     await this.notificationService.execute(updateOrderStatusCommand.toNotification());
   }
 
-  async getOrdersOfStore(id: bigint): Promise<any[]> {
+  async getOrdersOfStore(id: string): Promise<any[]> {
     return await this.getOrdersOfStoreUseCase.execute(id);
   }
 }

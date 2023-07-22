@@ -4,7 +4,7 @@ import { Store } from "@prisma/client";
 import { Exclude, Expose } from "class-transformer";
 
 export class CreateStoreResponse {
-  @Exclude() private readonly id: bigint;
+  @Exclude() private readonly id: string;
   email: string;
   password: string;
   name: string;

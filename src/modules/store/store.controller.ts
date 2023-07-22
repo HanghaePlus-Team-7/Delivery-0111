@@ -13,7 +13,7 @@ export class StoreController {
 
   @Get(":id")
   findOne(id: string) {
-    return this.storeService.findOne(+id);
+    return this.storeService.findOne(id);
   }
 
   @Post()

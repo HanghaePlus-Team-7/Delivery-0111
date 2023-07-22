@@ -3,6 +3,7 @@ import { Test, TestingModule } from "@nestjs/testing";
 
 import { Order, PrismaClient, Product, Store, User } from "@prisma/client";
 import request from "supertest";
+import { v4 as uuidV4 } from "uuid";
 
 import { AppModule } from "@root/app.module";
 import { setNestApp } from "@root/libs/common/set-nest-app";
@@ -45,6 +46,7 @@ describe("주문 매장 (e2e)", () => {
   beforeEach(async () => {
     user = await prisma.user.create({
       data: {
+        id: uuidV4(),
         email: "test-email@email.com",
         password: "test-password",
         nickname: "test-nickname",
@@ -55,6 +57,7 @@ describe("주문 매장 (e2e)", () => {
 
     store = await prisma.store.create({
       data: {
+        id: uuidV4(),
         email: "test-store-email@email.com",
         password: "test-store-password",
         name: "test-store-name",
@@ -67,8 +70,8 @@ describe("주문 매장 (e2e)", () => {
 
     product = await prisma.product.create({
       data: {
+        id: uuidV4(),
         name: "test-product-name",
-        code: "test-product-code",
         price: 1000,
         storeId: store.id,
       },
@@ -79,10 +82,12 @@ describe("주문 매장 (e2e)", () => {
     beforeEach(async () => {
       order = await prisma.order.create({
         data: {
+          id: uuidV4(),
           userId: user.id,
           storeId: store.id,
           OrderSheet: {
             create: {
+              id: uuidV4(),
               productId: product.id,
               amount: 1,
             },
@@ -131,10 +136,12 @@ describe("주문 매장 (e2e)", () => {
     beforeEach(async () => {
       order = await prisma.order.create({
         data: {
+          id: uuidV4(),
           userId: user.id,
           storeId: store.id,
           OrderSheet: {
             create: {
+              id: uuidV4(),
               productId: product.id,
               amount: 1,
             },
@@ -189,11 +196,11 @@ describe("주문 매장 (e2e)", () => {
   });
 
   describe("주문 상세 조회", () => {
-    let orders: { id: bigint };
+    let orders: { id: string };
 
     beforeEach(async () => {
       // TODO: 제대로 된 샘플 데이터로 변경 필요
-      orders = { id: 1n };
+      orders = { id: uuidV4() };
     });
 
     it.todo("주문 상세 조회 성공하면 200 응답을 보내나?");
@@ -215,11 +222,11 @@ describe("주문 매장 (e2e)", () => {
   });
 
   describe("주문 취소", () => {
-    let orders: { id: bigint };
+    let orders: { id: string };
 
     beforeEach(async () => {
       // TODO: 제대로 된 샘플 데이터로 변경 필요
-      orders = { id: 1n };
+      orders = { id: uuidV4() };
     });
 
     it.todo("주문 취소 성공하면 200 응답을 보내나?");

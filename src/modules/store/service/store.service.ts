@@ -24,7 +24,7 @@ export class StoreService {
     return found;
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     const found = await this.storeRepository.findOne(id);
     if (!found) {
       throw new HttpException(`there is no ${id}`, 400);

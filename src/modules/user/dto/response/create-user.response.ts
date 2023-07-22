@@ -4,7 +4,7 @@ import { User } from "@prisma/client";
 import { Exclude, Expose } from "class-transformer";
 
 export class CreateUserResponse {
-  @Exclude() private readonly _id: bigint;
+  @Exclude() private readonly _id: string;
   email: string;
   password: string;
   nickname: string;

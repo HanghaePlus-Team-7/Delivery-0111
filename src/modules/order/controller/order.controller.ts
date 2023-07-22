@@ -14,6 +14,6 @@ export class OrderController {
 
   @Get("/stores/:storeId")
   async getOrdersOfStore(@Param("storeId") storeId: string) {
-    return await this.ordersService.getOrdersOfStore(BigInt(storeId));
+    return await this.ordersService.getOrdersOfStore(storeId);
   }
 }

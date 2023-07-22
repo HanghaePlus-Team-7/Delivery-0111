@@ -2,15 +2,15 @@ import { OrderMessage } from "@order/entity/order-message";
 import { OrderEntity } from "@order/entity/order.entity";
 
 export class UpdateOrderStatusCommand {
-  private readonly _orderId: bigint;
+  private readonly _orderId: string;
   private readonly _orderMessage: OrderMessage;
 
-  constructor(orderId: bigint, orderMessage: OrderMessage) {
+  constructor(orderId: string, orderMessage: OrderMessage) {
     this._orderId = orderId;
     this._orderMessage = orderMessage;
   }
 
-  public get orderId(): bigint {
+  public get orderId(): string {
     return this._orderId;
   }
 

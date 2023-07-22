@@ -1,32 +1,29 @@
 import { v4 as uuidV4 } from "uuid";
 
 export class ProductEntity {
-  private readonly _id?: bigint;
-  private readonly _storeId: bigint;
-  private readonly _code: string;
-  private readonly _name: string;
-  private readonly _price: number;
-  private readonly _description: string;
-  private readonly _photo: string;
+  private readonly _id?: string;
+  private readonly _storeId?: string;
+  private readonly _name?: string;
+  private readonly _price?: number;
+  private readonly _description?: string;
+  private readonly _photoPath?: string;
   private readonly _inStock?: boolean;
 
   constructor(params: {
-    id?: bigint;
-    storeId: bigint;
-    code: string;
-    name: string;
-    price: number;
-    description: string;
-    photo: string;
+    id?: string;
+    storeId?: string;
+    name?: string;
+    price?: number;
+    description?: string;
+    photoPath?: string;
     inStock?: boolean;
   }) {
     this._id = params.id;
     this._storeId = params.storeId;
-    this._code = params.code;
     this._name = params.name;
     this._price = params.price;
     this._description = params.description;
-    this._photo = params.photo;
+    this._photoPath = params.photoPath;
     this._inStock = params.inStock;
   }
 
@@ -36,10 +33,6 @@ export class ProductEntity {
 
   get storeId() {
     return this._storeId;
-  }
-
-  get code() {
-    return this._code;
   }
 
   get name() {
@@ -54,22 +47,28 @@ export class ProductEntity {
     return this._description;
   }
 
-  get photo() {
-    return this._photo;
+  get photoPath() {
+    return this._photoPath;
   }
 
   get inStock() {
     return this._inStock;
   }
 
-  static forAddProduct(params: { storeId: bigint; name: string; price: number; description: string; photo: string }) {
+  static forAddProduct(params: {
+    storeId: string;
+    name: string;
+    price: number;
+    description: string;
+    photoPath: string;
+  }) {
     return new ProductEntity({
+      id: uuidV4(),
       storeId: params.storeId,
       name: params.name,
       price: params.price,
       description: params.description,
-      photo: params.photo,
-      code: uuidV4(),
+      photoPath: params.photoPath,
     });
   }
 }

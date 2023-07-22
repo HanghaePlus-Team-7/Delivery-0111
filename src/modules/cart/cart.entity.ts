@@ -1,7 +1,9 @@
+import { v4 as uuidV4 } from "uuid";
+
 export class CartEntity {
-  id: bigint;
-  userId: bigint;
-  productId: bigint;
+  id: string;
+  userId: string;
+  productId: string;
   amount: number;
 
   constructor() {}
@@ -12,5 +14,14 @@ export class CartEntity {
     Object.assign(entity, params);
 
     return entity;
+  }
+
+  static forAddCart(param: { userId: string; productId: string; amount: number }) {
+    return CartEntity.of({
+      id: uuidV4(),
+      userId: param.userId,
+      productId: param.productId,
+      amount: param.amount,
+    });
   }
 }

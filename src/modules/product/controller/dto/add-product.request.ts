@@ -1,5 +1,5 @@
 import { Transform } from "class-transformer";
-import { IsInt, IsNotEmpty, IsString } from "class-validator";
+import { IsInt, IsNotEmpty, IsString, IsUUID } from "class-validator";
 
 import { AddProductCommand } from "@product/service/dto/add-product.command";
 
@@ -18,8 +18,8 @@ export class AddProductRequest {
   description: string;
 
   @IsNotEmpty()
-  @Transform(({ value }) => BigInt(value))
-  storeId: bigint;
+  @IsUUID(4)
+  storeId: string;
 
   constructor(params: Partial<AddProductRequest>) {
     Object.assign(this, params);
