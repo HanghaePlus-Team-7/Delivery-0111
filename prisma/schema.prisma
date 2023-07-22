@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id        String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid()
+  id        String     @id @db.Uuid
   email     String     @unique @db.VarChar(255)
   password  String     @db.VarChar(255)
   nickname  String     @db.VarChar(20)
@@ -29,7 +29,7 @@ model User {
 }
 
 model Store {
-  id        String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid()
+  id        String     @id @db.Uuid
   email     String     @unique @db.VarChar(255)
   password  String     @db.VarChar(255)
   name      String     @db.VarChar(50)
@@ -49,7 +49,7 @@ model Store {
 }
 
 model Bookmark {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid()
+  id        String   @id @db.Uuid
   user      User     @relation(fields: [userId], references: [id])
   userId    String   @map("user_id") @db.Uuid
   Store     Store    @relation(fields: [storeId], references: [id])
@@ -62,8 +62,7 @@ model Bookmark {
 }
 
 model Product {
-  id         String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid()
-  code       String       @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid()
+  id         String       @id @db.Uuid
   name       String       @db.VarChar(50)
   price      Int          @db.Integer
   inStock    Boolean      @default(true) @map("in_stock")
@@ -79,7 +78,7 @@ model Product {
 }
 
 model Order {
-  id                  String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid()
+  id                  String       @id @db.Uuid
   paymentType         String       @map("payment_type") @db.VarChar(50)
   status              String       @db.VarChar(50)
   paymentStatus       String       @map("payment_status") @db.VarChar(50)
@@ -102,7 +101,7 @@ model Order {
 }
 
 model Cart {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid()
+  id        String   @id @db.Uuid
   amount    Int      @db.Integer
   user      User     @relation(fields: [userId], references: [id])
   userId    String   @map("user_id") @db.Uuid
@@ -115,7 +114,7 @@ model Cart {
 }
 
 model Review {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid()
+  id        String   @id @db.Uuid
   images    String[] @db.VarChar(1000)
   content   String   @db.VarChar(255)
   comment   String   @db.VarChar(255)
@@ -132,7 +131,7 @@ model Review {
 }
 
 model OrderSheet {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid()
+  id        String   @id @db.Uuid
   amount    Int      @db.Integer
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(0)
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(0)
