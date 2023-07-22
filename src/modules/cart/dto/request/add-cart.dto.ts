@@ -24,7 +24,7 @@ export class AddCartDto {
     return addCartDto;
   }
 
-  toEntity() {
+  public toEntity() {
     return CartEntity.forAddCart({
       userId: this.userId,
       productId: this.productId,

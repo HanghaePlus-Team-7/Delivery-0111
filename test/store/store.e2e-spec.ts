@@ -1,5 +1,3 @@
-import { log } from "console";
-
 import { INestApplication } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 
@@ -56,7 +54,6 @@ describe("store (e2e)", () => {
 
     it("매장목록이 정상적으로 리턴하면 200 응답을 보내나?", async () => {
       const res = await request(app.getHttpServer()).get("/store");
-      log(res.body);
       expect(res.status).toBe(200);
     });
   });

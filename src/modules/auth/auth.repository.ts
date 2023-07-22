@@ -40,7 +40,6 @@ export class AuthRepository {
         updatedAt: true,
       },
     });
-    console.log(user);
     if (user === null) {
       throw new UnauthorizedException();
     }
@@ -80,7 +79,6 @@ export class AuthRepository {
         updatedAt: true,
       },
     });
-    console.log(store);
     if (store === null) {
       throw new UnauthorizedException();
     }

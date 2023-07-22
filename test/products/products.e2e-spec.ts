@@ -46,9 +46,13 @@ describe("products (e2e)", () => {
     });
   });
 
+  afterAll(async () => {
+    await truncateTable(prismaService);
+    await app.close();
+  });
   describe("메뉴추가", () => {
     let menuData: { name: string; price: number; description: string; photo: string; storeId: string };
-    const filePath = process.env.UPLOAD_FILE_PATH || "@root/../test/data/uploads";
+    const filePath = process.env.UPLOAD_FILE_PATH || "../test/data/uploads";
     const fileName = process.env.UPLOAD_FILE_NAME || "test.png";
     const path = `${filePath}/${fileName}`;
 

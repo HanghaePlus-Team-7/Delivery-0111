@@ -16,4 +16,6 @@ describe("Cart", () => {
     cartRepository = module.get<CartRepository>(CartRepository);
     prismaService = module.get<PrismaService>(PrismaService);
   });
+
+  it.todo("cart test");
 });

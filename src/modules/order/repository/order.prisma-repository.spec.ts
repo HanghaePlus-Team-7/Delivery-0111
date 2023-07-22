@@ -1,6 +1,7 @@
 import { Test, TestingModule } from "@nestjs/testing";
 
 import { Order, Product, Store, User } from "@prisma/client";
+import { v4 as uuidV4 } from "uuid";
 
 import { PrismaModule } from "@root/prisma/prisma.module";
 import { PrismaService } from "@root/prisma/prisma.service";
@@ -10,7 +11,6 @@ import { OrderPrismaRepository } from "@order/repository/order.prisma-repository
 import { ORDERS_REPOSITORY, OrderRepository } from "@order/repository/order.repository";
 
 import { truncateTable } from "../../../../test/truncate-table";
-
 describe("Orders", () => {
   let ordersRepository: OrderRepository;
   let prismaService: PrismaService;
@@ -37,8 +37,11 @@ describe("Orders", () => {
     let product: Product;
 
     beforeEach(async () => {
+      await truncateTable(prismaService);
+
       user = await prismaService.user.create({
         data: {
+          id: uuidV4(),
           email: "test-email@email.com",
           password: "test-password",
           nickname: "test-nickname",
@@ -49,6 +52,7 @@ describe("Orders", () => {
 
       store = await prismaService.store.create({
         data: {
+          id: uuidV4(),
           email: "test-store-email@email.com",
           password: "test-store-password",
           name: "test-store-name",
@@ -61,25 +65,27 @@ describe("Orders", () => {
 
       product = await prismaService.product.create({
         data: {
+          id: uuidV4(),
           name: "test-product-name",
-          code: "test-product-code",
           price: 1000,
           storeId: store.id,
         },
       });
     });
 
-    afterEach(async () => {
+    afterAll(async () => {
       await truncateTable(prismaService);
     });
 
     it("ordersRepository.updateOrderStatus 실행하면 prismaService.order.update가 status를 OrderStatus.CONFIRMED로 바꿈?", async () => {
       order = await prismaService.order.create({
         data: {
+          id: uuidV4(),
           userId: user.id,
           storeId: store.id,
           OrderSheet: {
             create: {
+              id: uuidV4(),
               productId: product.id,
               amount: 1,
             },

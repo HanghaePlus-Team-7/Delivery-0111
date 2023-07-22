@@ -1,11 +1,13 @@
 import { Test, TestingModule } from "@nestjs/testing";
 
+import { v4 as uuidV4 } from "uuid";
+
 import { ConfirmOrderRequest } from "@order/controller/dto/confirm-order.request";
 import { OrderController } from "@order/controller/order.controller";
 import { ORDERS_SERVICE, OrderService } from "@order/service/order.service";
 import { OrderServiceImpl } from "@order/service/order.service-impl";
 
-jest.mock("@orders/service/orders.service-impl");
+jest.mock("@order/service/order.service-impl");
 
 describe("OrdersController", () => {
   let controller: OrderController;
@@ -30,7 +32,7 @@ describe("OrdersController", () => {
 
   describe("주문 확정 (confirmOrder)", () => {
     it("주문 확정 서비스를 ConfirmOrdersDto의 인스턴스를 argument로 호출하나?", async () => {
-      const orderId = 1n;
+      const orderId = uuidV4();
       const confirmOrdersDto = ConfirmOrderRequest.of({ orderId });
 
       ordersService.confirmOrder = jest.fn();
@@ -43,11 +45,11 @@ describe("OrdersController", () => {
 
   describe("주문 전체 조회 (getOrdersOfStore)", () => {
     it("주문 전체 조회 서비스를 가게의 아이디로 실행하나?", async () => {
-      const storeId = "1";
+      const storeId = uuidV4();
 
       await controller.getOrdersOfStore(storeId);
       expect(ordersService.getOrdersOfStore).toBeCalledTimes(1);
-      expect(ordersService.getOrdersOfStore).toBeCalledWith(BigInt(storeId));
+      expect(ordersService.getOrdersOfStore).toBeCalledWith(storeId);
     });
   });
 });

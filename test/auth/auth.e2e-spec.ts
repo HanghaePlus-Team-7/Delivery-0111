@@ -5,6 +5,7 @@ import { JsonWebTokenError, NotBeforeError, TokenExpiredError, verify } from "js
 import request from "supertest";
 
 import { AppModule } from "@root/app.module";
+import { setNestApp } from "@root/libs/common/set-nest-app";
 import authConfig from "@root/modules/auth/auth.config";
 
 describe("auth (e2e)", () => {
@@ -16,6 +17,7 @@ describe("auth (e2e)", () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
+    setNestApp(app);
     await app.init();
   });
 

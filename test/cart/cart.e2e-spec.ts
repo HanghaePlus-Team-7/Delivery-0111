@@ -5,6 +5,8 @@ import request from "supertest";
 import { v4 as uuidV4 } from "uuid";
 
 import { AppModule } from "@root/app.module";
+import { setNestApp } from "@root/libs/common/set-nest-app";
+
 describe("장바구니 (e2e)", () => {
   let app: INestApplication;
 
@@ -14,6 +16,7 @@ describe("장바구니 (e2e)", () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
+    setNestApp(app);
     await app.init();
   });
 
@@ -26,7 +29,7 @@ describe("장바구니 (e2e)", () => {
     });
 
     it("장바구니 추가에 성공하면 201 응답을 보낸다", async () => {
-      const res = await request(app.getHttpServer()).post(`/cart`);
+      const res = await request(app.getHttpServer()).post(`/cart`).send(cart);
       expect(res.status).toBe(201);
     });
   });

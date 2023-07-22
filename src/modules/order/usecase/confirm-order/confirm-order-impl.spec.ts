@@ -1,5 +1,7 @@
 import { Test, TestingModule } from "@nestjs/testing";
 
+import { v4 as uuidV4 } from "uuid";
+
 import { OrderEntity } from "@order/entity/order.entity";
 import { ConfirmOrderType as ConfirmOrderType } from "@order/entity/order.type";
 import { OrderPrismaRepository } from "@order/repository/order.prisma-repository";
@@ -7,7 +9,7 @@ import { ORDERS_REPOSITORY, OrderRepository } from "@order/repository/order.repo
 import { CONFIRM_ORDER, ConfirmOrder } from "@order/usecase/confirm-order/confirm-order";
 import { ConfirmOrderImpl } from "@order/usecase/confirm-order/confirm-order-impl";
 
-jest.mock("@orders/repository/orders.prisma-repository");
+jest.mock("@order/repository/order.prisma-repository");
 
 describe("ConfirmOrder", () => {
   let confirmOrder: ConfirmOrder;
@@ -32,7 +34,7 @@ describe("ConfirmOrder", () => {
   });
 
   it("confirmOrder.execute를 실행하면 ordersRepository.updateOrderStatus 실행하나?", async () => {
-    const confirmOrderEntity: ConfirmOrderType = OrderEntity.forConfirmOrder(1n);
+    const confirmOrderEntity: ConfirmOrderType = OrderEntity.forConfirmOrder(uuidV4());
 
     await confirmOrder.execute(confirmOrderEntity);
     expect(ordersRepository.updateOrderStatus).toBeCalledTimes(1);

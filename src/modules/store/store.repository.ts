@@ -25,7 +25,6 @@ export class StoreRepository {
         closeHour,
       },
     });
-    console.log("1", store);
     const newStore = { ...store, id: store.id.toString() };
     return newStore;
   }

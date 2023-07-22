@@ -34,7 +34,6 @@ export class UserRepository {
       const newUser = { ...user, id: user.id.toString() };
       return newUser;
     } catch (e: any) {
-      console.log(e);
       throw new HttpException("PrismaClientKnownRequestError", 400);
     }
   }

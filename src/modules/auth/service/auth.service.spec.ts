@@ -5,21 +5,20 @@ import { AuthRepository } from "../auth.repository";
 
 import { AuthService } from "./auth.service";
 
+jest.mock("../auth.repository");
+
 describe("AuthService", () => {
   let service: AuthService;
+  let jwtService: JwtService;
   let authRepository: AuthRepository;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        {
-          provide: JwtService,
-          useClass: AuthService,
-        },
-        AuthRepository,
-      ],
+      providers: [AuthService, JwtService, AuthRepository],
     }).compile();
+
     authRepository = module.get<AuthRepository>(AuthRepository);
+    jwtService = module.get<JwtService>(JwtService);
     service = module.get<AuthService>(AuthService);
   });
 

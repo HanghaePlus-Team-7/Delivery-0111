@@ -1,7 +1,7 @@
 import { INestApplication } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 
-import { Order, PrismaClient, Product, Store, User } from "@prisma/client";
+import { Order, Product, Store, User } from "@prisma/client";
 import request from "supertest";
 import { v4 as uuidV4 } from "uuid";
 
@@ -13,7 +13,6 @@ import { OrderStatus } from "@order/entity/order-status";
 
 import { truncateTable } from "../truncate-table";
 
-const prisma = new PrismaClient();
 describe("주문 매장 (e2e)", () => {
   let app: INestApplication;
   let prismaService: PrismaService;
@@ -33,18 +32,9 @@ describe("주문 매장 (e2e)", () => {
     await app.init();
 
     prismaService = moduleFixture.get<PrismaService>(PrismaService);
-  });
 
-  afterAll(async () => {
-    await app.close();
-  });
-
-  afterEach(async () => {
-    await truncateTable(prisma);
-  });
-
-  beforeEach(async () => {
-    user = await prisma.user.create({
+    await truncateTable(prismaService);
+    user = await prismaService.user.create({
       data: {
         id: uuidV4(),
         email: "test-email@email.com",
@@ -55,7 +45,7 @@ describe("주문 매장 (e2e)", () => {
       },
     });
 
-    store = await prisma.store.create({
+    store = await prismaService.store.create({
       data: {
         id: uuidV4(),
         email: "test-store-email@email.com",
@@ -68,7 +58,7 @@ describe("주문 매장 (e2e)", () => {
       },
     });
 
-    product = await prisma.product.create({
+    product = await prismaService.product.create({
       data: {
         id: uuidV4(),
         name: "test-product-name",
@@ -78,9 +68,18 @@ describe("주문 매장 (e2e)", () => {
     });
   });
 
+  afterAll(async () => {
+    await truncateTable(prismaService);
+    await app.close();
+  });
+
+  // afterEach(async () => {});
+
+  // beforeEach(async () => {});
+
   describe("주문 확정", () => {
     beforeEach(async () => {
-      order = await prisma.order.create({
+      order = await prismaService.order.create({
         data: {
           id: uuidV4(),
           userId: user.id,
@@ -107,7 +106,7 @@ describe("주문 매장 (e2e)", () => {
 
     it("주문 확정 성공하면 DB에서 상태가 'CONFIRMED'로 바뀌나?", async () => {
       await request(app.getHttpServer()).patch(`/orders/${order.id}/confirmation`);
-      const result = await prisma.order.findUnique({
+      const result = await prismaService.order.findUnique({
         select: {
           status: true,
         },
@@ -120,7 +119,7 @@ describe("주문 매장 (e2e)", () => {
 
     it("주문 확정 성공하면 DB에서 주문확정 시간이 생성되나??", async () => {
       await request(app.getHttpServer()).patch(`/orders/${order.id}/confirmation`);
-      const result = await prisma.order.findUnique({
+      const result = await prismaService.order.findUnique({
         select: {
           confirmedOrderAt: true,
         },
@@ -134,7 +133,7 @@ describe("주문 매장 (e2e)", () => {
 
   describe("주문 전체 조회", () => {
     beforeEach(async () => {
-      order = await prisma.order.create({
+      order = await prismaService.order.create({
         data: {
           id: uuidV4(),
           userId: user.id,
