@@ -31,7 +31,7 @@ export class AddProductRequest {
       price: this.price,
       description: this.description,
       storeId: this.storeId,
-      photo: photo.path,
+      photoPath: photo.path,
     });
   }
 }

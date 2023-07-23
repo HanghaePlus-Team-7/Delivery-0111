@@ -1,11 +1,7 @@
-import { Product } from "@prisma/client";
+import { AddProductParam } from "@product/repository/interface/add-product-param";
 
 export interface ProductRepository {
-  addProduct: (product: any) => Promise<void>;
-  getAllProducts: (id: string) => Promise<Product[]>;
-  // getOneProduct
-  // updateProduct
-  // deleteProduct
+  addProduct: (product: AddProductParam) => Promise<void>;
 }
 
 export const PRODUCT_REPOSITORY = Symbol("PRODUCT_REPOSITORY");

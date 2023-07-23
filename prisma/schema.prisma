@@ -62,16 +62,18 @@ model Bookmark {
 }
 
 model Product {
-  id         String       @id @db.Uuid
-  name       String       @db.VarChar(50)
-  price      Int          @db.Integer
-  inStock    Boolean      @default(true) @map("in_stock")
-  createdAt  DateTime     @default(now()) @map("created_at") @db.Timestamptz(0)
-  updatedAt  DateTime     @updatedAt @map("updated_at") @db.Timestamptz(0)
-  store      Store        @relation(fields: [storeId], references: [id])
-  storeId    String       @map("store_id") @db.Uuid
-  Cart       Cart[]
-  OrderSheet OrderSheet[]
+  id          String       @id @db.Uuid
+  name        String       @db.VarChar(50)
+  price       Int          @db.Integer
+  inStock     Boolean      @default(true) @map("in_stock")
+  description String       @db.VarChar(255)
+  image       String       @db.VarChar(1000)
+  createdAt   DateTime     @default(now()) @map("created_at") @db.Timestamptz(0)
+  updatedAt   DateTime     @updatedAt @map("updated_at") @db.Timestamptz(0)
+  store       Store        @relation(fields: [storeId], references: [id])
+  storeId     String       @map("store_id") @db.Uuid
+  Cart        Cart[]
+  OrderSheet  OrderSheet[]
 
   @@index([createdAt])
   @@map("product")
