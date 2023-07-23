@@ -1,7 +1,11 @@
+import { Injectable } from "@nestjs/common";
+
 import { AddProductCommand } from "@product/service/dto/add-product.command";
 
-export interface ProductService {
-  addProduct(command: AddProductCommand): Promise<void>;
+@Injectable()
+export class ProductService {
+  constructor() {}
+  addProduct(command: AddProductCommand): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
 }
-
-export const PRODUCT_SERVICE = Symbol("PRODUCT_SERVICE");

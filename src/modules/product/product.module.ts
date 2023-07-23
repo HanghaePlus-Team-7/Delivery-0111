@@ -4,8 +4,9 @@ import { MulterModule } from "@nestjs/platform-express";
 import { MulterConfigService } from "@root/middleware/multer/multer-config.service";
 
 import { ProductController } from "@product/controller/product.controller";
-import { PRODUCT_SERVICE } from "@product/service/product.service";
-import { ProductServiceImpl } from "@product/service/product.service-impl";
+import { ProductPrismaRepository } from "@product/repository/product.prisma-repository";
+import { PRODUCT_REPOSITORY } from "@product/repository/product.repository";
+import { ProductService } from "@product/service/product.service";
 
 @Module({
   imports: [
@@ -15,9 +16,10 @@ import { ProductServiceImpl } from "@product/service/product.service-impl";
   ],
   controllers: [ProductController],
   providers: [
+    ProductService,
     {
-      provide: PRODUCT_SERVICE,
-      useClass: ProductServiceImpl,
+      provide: PRODUCT_REPOSITORY,
+      useClass: ProductPrismaRepository,
     },
   ],
 })
