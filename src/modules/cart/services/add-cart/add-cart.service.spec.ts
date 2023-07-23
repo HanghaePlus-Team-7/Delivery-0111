@@ -1,5 +1,7 @@
 import { Test, TestingModule } from "@nestjs/testing";
 
+import { v4 as uuidV4 } from "uuid";
+
 import { AddCartDto } from "@cart/dto/request/add-cart.dto";
 
 import { CartRepository } from "./../../cart.repository";
@@ -30,8 +32,8 @@ describe("AddCartService", () => {
 
   it("cartRepository.addCart가 실행하는지", async () => {
     const mockAddCartDto = AddCartDto.of({
-      userId: 1n,
-      productId: 2n,
+      userId: uuidV4(),
+      productId: uuidV4(),
       amount: 3,
     });
 

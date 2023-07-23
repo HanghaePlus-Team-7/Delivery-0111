@@ -8,10 +8,11 @@ import { CartEntity } from "./cart.entity";
 export class CartRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async addCart({ userId, productId, amount }: CartEntity): Promise<void> {
+  async addCart({ id, userId, productId, amount }: CartEntity): Promise<void> {
     try {
       await this.prismaService.cart.create({
         data: {
+          id: id,
           userId: userId,
           productId: productId,
           amount: amount,

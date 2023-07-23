@@ -1,5 +1,7 @@
 import { Injectable } from "@nestjs/common";
 
+import { v4 as uuidV4 } from "uuid";
+
 import { PrismaService } from "../../prisma/prisma.service";
 
 import { CreateStoreRequest } from "./dto";
@@ -13,6 +15,7 @@ export class StoreRepository {
 
     const store = await this.prisma.store.create({
       data: {
+        id: uuidV4(),
         email,
         password,
         name,
@@ -22,7 +25,6 @@ export class StoreRepository {
         closeHour,
       },
     });
-    console.log("1", store);
     const newStore = { ...store, id: store.id.toString() };
     return newStore;
   }
@@ -35,7 +37,7 @@ export class StoreRepository {
     });
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     return await this.prisma.store.findUnique({
       where: {
         id,

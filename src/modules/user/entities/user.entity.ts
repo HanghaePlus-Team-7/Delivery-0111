@@ -1,5 +1,5 @@
 export class UserEntity {
-  id: bigint; // uuid
+  id: string; // uuid
   email: string;
   password: string;
   nickname: string;

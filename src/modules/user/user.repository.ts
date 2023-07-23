@@ -1,5 +1,7 @@
 import { HttpException, Injectable } from "@nestjs/common";
 
+import { v4 as uuidV4 } from "uuid";
+
 import { CreateUserDto } from "@root/modules/user/dto/request/create-user.dto";
 
 import { PrismaService } from "../../prisma/prisma.service";
@@ -21,6 +23,7 @@ export class UserRepository {
       }
       const user = await this.prisma.user.create({
         data: {
+          id: uuidV4(),
           email,
           password,
           nickname,
@@ -31,7 +34,6 @@ export class UserRepository {
       const newUser = { ...user, id: user.id.toString() };
       return newUser;
     } catch (e: any) {
-      console.log(e);
       throw new HttpException("PrismaClientKnownRequestError", 400);
     }
   }
@@ -44,7 +46,7 @@ export class UserRepository {
     });
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     return await this.prisma.user.findUnique({
       where: {
         id,

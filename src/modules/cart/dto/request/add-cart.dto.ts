@@ -1,14 +1,16 @@
 import { IsNotEmpty } from "class-validator";
 
+import { CartEntity } from "@cart/cart.entity";
+
 export class AddCartDto {
   @IsNotEmpty()
-  id: bigint;
+  id: string;
 
   @IsNotEmpty()
-  userId: bigint;
+  userId: string;
 
   @IsNotEmpty()
-  productId: bigint;
+  productId: string;
 
   @IsNotEmpty()
   amount: number;
@@ -20,5 +22,13 @@ export class AddCartDto {
     Object.assign(addCartDto, params);
 
     return addCartDto;
+  }
+
+  public toEntity() {
+    return CartEntity.forAddCart({
+      userId: this.userId,
+      productId: this.productId,
+      amount: this.amount,
+    });
   }
 }

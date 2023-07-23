@@ -8,7 +8,7 @@ import { GetOrdersOfStore } from "@order/usecase/get-orders-of-store/get-orders-
 export class GetOrdersOfStoreImpl implements GetOrdersOfStore {
   constructor(@Inject(ORDERS_REPOSITORY) private readonly ordersRepository: OrderPrismaRepository) {}
 
-  async execute(id: bigint) {
+  async execute(id: string) {
     return await this.ordersRepository.getOrdersOfStore(id);
   }
 }

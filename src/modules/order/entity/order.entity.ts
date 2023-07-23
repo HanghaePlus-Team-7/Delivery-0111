@@ -3,12 +3,12 @@ import { UserEntity } from "@root/modules/user/entities/user.entity";
 import { OrderStatus } from "@order/entity/order-status";
 import { ConfirmOrderType } from "@order/entity/order.type";
 
-import { ProductEntity } from "@product/product.entity";
+import { ProductEntity } from "@product/entity/product.entity";
 
 import { StoreEntity } from "@store/store.entity";
 
 export class OrderEntity {
-  private readonly _id?: bigint;
+  private readonly _id?: string;
   private readonly _paymentType?: string; // 지금은 string, 추후에 enum 생성 후 변경
   private readonly _status?: OrderStatus;
   private readonly _paymentStatus?: boolean;
@@ -102,7 +102,7 @@ export class OrderEntity {
     return this._updatedAt;
   }
 
-  static forConfirmOrder(id: bigint): ConfirmOrderType {
+  static forConfirmOrder(id: string): ConfirmOrderType {
     return new OrderEntity({ id, status: OrderStatus.CONFIRMED, confirmedOrderAt: new Date() });
   }
 }

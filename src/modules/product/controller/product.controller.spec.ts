@@ -13,5 +13,7 @@ describe("ProductsController", () => {
     controller = module.get<ProductController>(ProductController);
   });
 
-  describe("메뉴추가", () => {});
+  describe("메뉴추가", () => {
+    it.todo("메뉴추가");
+  });
 });

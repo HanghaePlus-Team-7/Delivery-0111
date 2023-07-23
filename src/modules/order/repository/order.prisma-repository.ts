@@ -11,7 +11,7 @@ import { OrderRepository } from "@order/repository/order.repository";
 export class OrderPrismaRepository implements OrderRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async updateOrderStatus(id: bigint, status: OrderStatus, confirmedOrderAt: Date): Promise<void> {
+  async updateOrderStatus(id: string, status: OrderStatus, confirmedOrderAt: Date): Promise<void> {
     try {
       await this.prismaService.order.update({
         where: {
@@ -29,7 +29,7 @@ export class OrderPrismaRepository implements OrderRepository {
     }
   }
 
-  async getOrdersOfStore(id: bigint) {
+  async getOrdersOfStore(id: string) {
     try {
       return await this.prismaService.order.findMany({
         where: {

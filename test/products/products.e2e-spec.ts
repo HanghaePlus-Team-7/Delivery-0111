@@ -6,6 +6,7 @@ import { Test, TestingModule } from "@nestjs/testing";
 
 import { Store } from "@prisma/client";
 import request from "supertest";
+import { v4 as uuidV4 } from "uuid";
 
 import { AppModule } from "@root/app.module";
 import { setNestApp } from "@root/libs/common/set-nest-app";
@@ -33,6 +34,7 @@ describe("products (e2e)", () => {
     await truncateTable(prismaService);
     store = await prismaService.store.create({
       data: {
+        id: uuidV4(),
         email: "test-store-email@email.com",
         password: "test-store-password",
         name: "test-store-name",
@@ -44,9 +46,13 @@ describe("products (e2e)", () => {
     });
   });
 
+  afterAll(async () => {
+    await truncateTable(prismaService);
+    await app.close();
+  });
   describe("메뉴추가", () => {
-    let menuData: { name: string; price: number; description: string; photo: string; storeId: bigint };
-    const filePath = process.env.UPLOAD_FILE_PATH || "@root/../test/data/uploads";
+    let menuData: { name: string; price: number; description: string; photo: string; storeId: string };
+    const filePath = process.env.UPLOAD_FILE_PATH || "../test/data/uploads";
     const fileName = process.env.UPLOAD_FILE_NAME || "test.png";
     const path = `${filePath}/${fileName}`;
 

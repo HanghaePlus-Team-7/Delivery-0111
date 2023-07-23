@@ -17,7 +17,7 @@ export class UserService {
     return await this.userRepository.createUser(createUserDto);
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     const found = await this.userRepository.findOne(id);
     if (!found) {
       throw new HttpException(`there is no ${id}`, 400);

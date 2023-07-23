@@ -1,5 +1,7 @@
 import { Test, TestingModule } from "@nestjs/testing";
 
+import { v4 as uuidV4 } from "uuid";
+
 import { OrderMessage } from "@order/entity/order-message";
 import { UpdateOrderStatusCommand } from "@order/service/dto/update-order-status.command";
 import { ORDERS_SERVICE, OrderService } from "@order/service/order.service";
@@ -12,9 +14,9 @@ import { GetOrdersOfStoreImpl } from "@order/usecase/get-orders-of-store/get-ord
 import { SEND_NOTIFICATION, SendNotification } from "@notification/usecase/send-notification";
 import { SendNotificationImpl } from "@notification/usecase/send-notification-impl";
 
-jest.mock("@orders/usecase/confirm-order/confirm-order-impl");
-jest.mock("@orders/usecase/get-orders-of-store/get-orders-of-store-impl");
-jest.mock("@notification/notification.service-impl");
+jest.mock("@order/usecase/confirm-order/confirm-order-impl");
+jest.mock("@order/usecase/get-orders-of-store/get-orders-of-store-impl");
+jest.mock("@notification/usecase/send-notification-impl");
 
 describe("OrdersService", () => {
   let service: OrderService;
@@ -53,7 +55,7 @@ describe("OrdersService", () => {
   describe("주문 확정", () => {
     let updateOrderStatusCommand: UpdateOrderStatusCommand;
     beforeEach(() => {
-      updateOrderStatusCommand = new UpdateOrderStatusCommand(1n, OrderMessage.CONFIRMED);
+      updateOrderStatusCommand = new UpdateOrderStatusCommand(uuidV4(), OrderMessage.CONFIRMED);
       confirmOrderUseCase.execute = jest.fn();
     });
     it("confirmOrder 실행하면 confirmOrderUseCase실행함?", async () => {

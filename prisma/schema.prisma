@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id        BigInt     @id @default(autoincrement())
+  id        String     @id @db.Uuid
   email     String     @unique @db.VarChar(255)
   password  String     @db.VarChar(255)
   nickname  String     @db.VarChar(20)
@@ -24,11 +24,12 @@ model User {
   Cart      Cart[]
   Review    Review[]
 
+  @@index([createdAt])
   @@map("user")
 }
 
 model Store {
-  id        BigInt     @id @default(autoincrement())
+  id        String     @id @db.Uuid
   email     String     @unique @db.VarChar(255)
   password  String     @db.VarChar(255)
   name      String     @db.VarChar(50)
@@ -43,38 +44,41 @@ model Store {
   Order     Order[]
   Review    Review[]
 
+  @@index([createdAt])
   @@map("store")
 }
 
 model Bookmark {
-  id      BigInt @id @default(autoincrement())
-  user    User   @relation(fields: [userId], references: [id])
-  userId  BigInt @map("user_id")
-  Store   Store  @relation(fields: [storeId], references: [id])
-  storeId BigInt @map("store_id")
+  id        String   @id @db.Uuid
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @map("user_id") @db.Uuid
+  Store     Store    @relation(fields: [storeId], references: [id])
+  storeId   String   @map("store_id") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(0)
 
   @@unique([storeId, userId])
+  @@index([createdAt])
   @@map("bookmark")
 }
 
 model Product {
-  id         BigInt       @id @default(autoincrement())
-  code       String       @unique @db.VarChar(50)
+  id         String       @id @db.Uuid
   name       String       @db.VarChar(50)
   price      Int          @db.Integer
   inStock    Boolean      @default(true) @map("in_stock")
   createdAt  DateTime     @default(now()) @map("created_at") @db.Timestamptz(0)
   updatedAt  DateTime     @updatedAt @map("updated_at") @db.Timestamptz(0)
   store      Store        @relation(fields: [storeId], references: [id])
-  storeId    BigInt       @map("store_id")
+  storeId    String       @map("store_id") @db.Uuid
   Cart       Cart[]
   OrderSheet OrderSheet[]
 
+  @@index([createdAt])
   @@map("product")
 }
 
 model Order {
-  id                  BigInt       @id @default(autoincrement())
+  id                  String       @id @db.Uuid
   paymentType         String       @map("payment_type") @db.VarChar(50)
   status              String       @db.VarChar(50)
   paymentStatus       String       @map("payment_status") @db.VarChar(50)
@@ -87,27 +91,30 @@ model Order {
   createdAt           DateTime     @default(now()) @map("created_at") @db.Timestamptz(0)
   updatedAt           DateTime     @updatedAt @map("updated_at") @db.Timestamptz(0)
   user                User         @relation(fields: [userId], references: [id])
-  userId              BigInt       @map("user_id")
+  userId              String       @map("user_id") @db.Uuid
   store               Store        @relation(fields: [storeId], references: [id])
-  storeId             BigInt       @map("store_id")
+  storeId             String       @map("store_id") @db.Uuid
   OrderSheet          OrderSheet[]
 
+  @@index([createdAt])
   @@map("order")
 }
 
 model Cart {
-  id        BigInt  @id @default(autoincrement())
-  amount    Int     @db.Integer
-  user      User    @relation(fields: [userId], references: [id])
-  userId    BigInt  @map("user_id")
-  product   Product @relation(fields: [productId], references: [id])
-  productId BigInt  @map("product_id")
+  id        String   @id @db.Uuid
+  amount    Int      @db.Integer
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @map("user_id") @db.Uuid
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String   @map("product_id") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(0)
 
+  @@index([createdAt])
   @@map("cart")
 }
 
 model Review {
-  id        BigInt   @id @default(autoincrement())
+  id        String   @id @db.Uuid
   images    String[] @db.VarChar(1000)
   content   String   @db.VarChar(255)
   comment   String   @db.VarChar(255)
@@ -115,22 +122,24 @@ model Review {
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(0)
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(0)
   user      User     @relation(fields: [userId], references: [id])
-  userId    BigInt   @map("user_id")
+  userId    String   @map("user_id") @db.Uuid
   store     Store    @relation(fields: [storeId], references: [id])
-  storeId   BigInt   @map("store_id")
+  storeId   String   @map("store_id") @db.Uuid
 
+  @@index([createdAt])
   @@map("review")
 }
 
 model OrderSheet {
-  id        BigInt   @id @default(autoincrement())
+  id        String   @id @db.Uuid
   amount    Int      @db.Integer
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(0)
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(0)
   order     Order    @relation(fields: [orderId], references: [id])
-  orderId   BigInt   @map("order_id")
+  orderId   String   @map("order_id") @db.Uuid
   product   Product  @relation(fields: [productId], references: [id])
-  productId BigInt   @map("product_id")
+  productId String   @map("product_id") @db.Uuid
 
+  @@index([createdAt])
   @@map("order_sheet")
 }

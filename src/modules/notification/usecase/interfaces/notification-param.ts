@@ -1,4 +1,4 @@
 export interface NotificationParam {
-  orderId: bigint;
+  orderId: string;
   message: string;
 }

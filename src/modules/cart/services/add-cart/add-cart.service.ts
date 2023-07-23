@@ -17,7 +17,7 @@ export class AddCartService implements AddCart {
   constructor(private readonly cartRepository: CartRepository) {}
 
   async execute(addCartDto: AddCartDto): Promise<void> {
-    return await this.cartRepository.addCart(addCartDto);
+    return await this.cartRepository.addCart(addCartDto.toEntity());
   }
 
   // addBasket(addCartDto: AddCartDto) {
