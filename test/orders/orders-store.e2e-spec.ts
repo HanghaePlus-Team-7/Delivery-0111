@@ -63,6 +63,8 @@ describe("주문 매장 (e2e)", () => {
         id: uuidV4(),
         name: "test-product-name",
         price: 1000,
+        description: "test-product-description",
+        image: "test-product-image",
         storeId: store.id,
       },
     });

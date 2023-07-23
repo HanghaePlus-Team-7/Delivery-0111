@@ -1,11 +1,13 @@
 import { Injectable } from "@nestjs/common";
 
 import { AddProductCommand } from "@product/service/dto/add-product.command";
+import { AddProduct } from "@product/usecase/add-product/add-product";
 
 @Injectable()
 export class ProductService {
-  constructor() {}
+  constructor(private readonly addProductUseCase: AddProduct) {}
+
   addProduct(command: AddProductCommand): Promise<void> {
-    throw new Error("Method not implemented.");
+    return this.addProductUseCase.execute(command.toEntity());
   }
 }
