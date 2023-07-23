@@ -7,17 +7,24 @@ import { PRODUCT_REPOSITORY, ProductRepository } from "@product/repository/produ
 export class AddProduct {
   constructor(@Inject(PRODUCT_REPOSITORY) private readonly productRepository: ProductRepository) {}
 
-  async execute(params: ProductEntity) {
-    if (!params.id || !params.name || !params.price || !params.description || !params.photoPath || !params.storeId)
+  async execute(productEntity: ProductEntity) {
+    if (
+      !productEntity.id ||
+      !productEntity.name ||
+      !productEntity.price ||
+      !productEntity.description ||
+      !productEntity.photoPath ||
+      !productEntity.storeId
+    )
       return Promise.reject(new BadRequestException());
 
     await this.productRepository.addProduct({
-      id: params.id,
-      name: params.name,
-      price: params.price,
-      description: params.description,
-      image: params.photoPath,
-      storeId: params.storeId,
+      id: productEntity.id,
+      name: productEntity.name,
+      price: productEntity.price,
+      description: productEntity.description,
+      image: productEntity.photoPath,
+      storeId: productEntity.storeId,
     });
   }
 }
