@@ -1,4 +1,5 @@
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
+import { EventEmitterModule } from "@nestjs/event-emitter";
 
 import { LoggerMiddleware } from "@root/middleware/logger/logger.middleware";
 
@@ -20,6 +21,7 @@ import { NotificationModule } from "@notification/notification.module";
 
 @Module({
   imports: [
+    EventEmitterModule.forRoot(),
     UserModule,
     StoreModule,
     ProductModule,

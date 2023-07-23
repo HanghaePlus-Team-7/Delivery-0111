@@ -12,10 +12,8 @@ import { ConfirmOrderImpl } from "@order/usecase/confirm-order/confirm-order-imp
 import { GET_ORDERS_OF_STORE } from "@order/usecase/get-orders-of-store/get-orders-of-store";
 import { GetOrdersOfStoreImpl } from "@order/usecase/get-orders-of-store/get-orders-of-store-impl";
 
-import { NotificationModule } from "@notification/notification.module";
-
 @Module({
-  imports: [PrismaModule, NotificationModule],
+  imports: [PrismaModule],
   controllers: [OrderController],
   providers: [
     {

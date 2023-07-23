@@ -1,3 +1,4 @@
+import { EventEmitter2 } from "@nestjs/event-emitter";
 import { Test, TestingModule } from "@nestjs/testing";
 
 import { v4 as uuidV4 } from "uuid";
@@ -11,18 +12,17 @@ import { ConfirmOrderImpl } from "@order/usecase/confirm-order/confirm-order-imp
 import { GET_ORDERS_OF_STORE, GetOrdersOfStore } from "@order/usecase/get-orders-of-store/get-orders-of-store";
 import { GetOrdersOfStoreImpl } from "@order/usecase/get-orders-of-store/get-orders-of-store-impl";
 
-import { SEND_NOTIFICATION, SendNotification } from "@notification/usecase/send-notification";
-import { SendNotificationImpl } from "@notification/usecase/send-notification-impl";
+import { NotificationEvent } from "@notification/notification.event";
 
 jest.mock("@order/usecase/confirm-order/confirm-order-impl");
 jest.mock("@order/usecase/get-orders-of-store/get-orders-of-store-impl");
-jest.mock("@notification/usecase/send-notification-impl");
+jest.mock("@nestjs/event-emitter");
 
 describe("OrdersService", () => {
   let service: OrderService;
-  let notificationService: SendNotification;
   let confirmOrderUseCase: ConfirmOrder;
   let getOrdersOfStoreUseCase: GetOrdersOfStore;
+  let eventEmitter2: EventEmitter2;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -32,10 +32,6 @@ describe("OrdersService", () => {
           useClass: OrderServiceImpl,
         },
         {
-          provide: SEND_NOTIFICATION,
-          useClass: SendNotificationImpl,
-        },
-        {
           provide: CONFIRM_ORDER,
           useValue: ConfirmOrderImpl,
         },
@@ -43,13 +39,14 @@ describe("OrdersService", () => {
           provide: GET_ORDERS_OF_STORE,
           useValue: GetOrdersOfStoreImpl,
         },
+        EventEmitter2,
       ],
     }).compile();
 
     service = module.get<OrderService>(ORDERS_SERVICE);
-    notificationService = module.get<SendNotification>(SEND_NOTIFICATION);
     confirmOrderUseCase = module.get<ConfirmOrder>(CONFIRM_ORDER);
     getOrdersOfStoreUseCase = module.get<GetOrdersOfStore>(GET_ORDERS_OF_STORE);
+    eventEmitter2 = module.get<EventEmitter2>(EventEmitter2);
   });
 
   describe("주문 확정", () => {
@@ -65,8 +62,11 @@ describe("OrdersService", () => {
 
     it("confirmOrder 실행하면 notificationService 실행함?", async () => {
       await service.confirmOrder(updateOrderStatusCommand);
-      expect(notificationService.execute).toBeCalledTimes(1);
-      expect(notificationService.execute).toBeCalledWith(updateOrderStatusCommand.toNotification());
+      expect(eventEmitter2.emit).toBeCalledTimes(1);
+      expect(eventEmitter2.emit).toBeCalledWith(
+        NotificationEvent.ORDER_CONFIRMED,
+        updateOrderStatusCommand.toNotification(),
+      );
     });
   });
 });
