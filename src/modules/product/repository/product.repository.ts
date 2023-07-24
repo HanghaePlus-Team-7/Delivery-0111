@@ -6,7 +6,7 @@ import { GetAllProductsParam } from "./interface/get-all-products-param";
 
 export interface ProductRepository {
   addProduct: (product: AddProductParam) => Promise<void>;
-  getAllProducts: (id: GetAllProductsParam) => Promise<ProductEntity[]>;
+  getAllProducts: (params: GetAllProductsParam) => Promise<ProductEntity[]>; // 질문
   // getOneProduct
   // updateProduct
   // deleteProduct
