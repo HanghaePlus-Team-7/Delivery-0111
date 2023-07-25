@@ -8,11 +8,7 @@ import { NotificationParam } from "@notification/service/interfaces/notification
 @Injectable()
 export class NotificationService {
   @OnSafeEvent(NotificationEvent.ORDER_CONFIRMED, { async: true })
-  async execute(param: NotificationParam): Promise<void> {
-    try {
-      throw new Error("Method not implemented.");
-    } catch (e) {
-      throw e;
-    }
+  async sendNotificationOrderConfirmed(param: NotificationParam): Promise<void> {
+    throw new Error("Method not implemented.");
   }
 }
