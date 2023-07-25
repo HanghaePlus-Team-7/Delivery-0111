@@ -50,6 +50,7 @@ describe("products (e2e)", () => {
     await truncateTable(prismaService);
     await app.close();
   });
+
   describe("메뉴추가", () => {
     let menuData: { name: string; price: number; description: string; photo: string; storeId: string };
     const filePath = process.env.UPLOAD_FILE_PATH || "../test/data/uploads";
@@ -97,11 +98,14 @@ describe("products (e2e)", () => {
     });
   });
 
-  describe("메뉴 조회", () => {
-    it.todo("메뉴 조회 잘됨?");
+  describe("메뉴 전체 조회", () => {
+    it("메뉴 전체 조회 시 200 응답을 반환하는가?", async () => {
+      const res = await request(app.getHttpServer()).get("/products");
+      expect(res.statusCode).toBe(200);
+    });
   });
 
   describe("메뉴 수정", () => {
-    it.todo("메뉴 수정 잘됨?");
+    it("메뉴 수정 시 201 응답을 반환하는가?", async () => {});
   });
 });

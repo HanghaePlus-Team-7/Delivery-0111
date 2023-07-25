@@ -5,9 +5,6 @@ import { PrismaService } from "@root/prisma/prisma.service";
 import { AddProductParam } from "@product/repository/interface/add-product-param";
 import { ProductRepository } from "@product/repository/product.repository";
 
-import { ProductEntity } from "../entity/product.entity";
-import { GetAllProducts } from "../usecase/get-all-products/get-all-products";
-
 @Injectable()
 export class ProductPrismaRepository implements ProductRepository {
   constructor(private readonly prismaService: PrismaService) {}
@@ -29,10 +26,12 @@ export class ProductPrismaRepository implements ProductRepository {
     }
   }
 
-  async getAllProducts(param: GetAllProducts): Promise<ProductEntity[]> {
+  async getAllProducts(): Promise<any[]> {
     try {
-      await this.prismaService.product.findMany({});
-      return;
-    } catch (err) {}
+      const getTest = await this.prismaService.product.findMany();
+      return getTest;
+    } catch (e) {
+      throw new InternalServerErrorException();
+    }
   }
 }

@@ -9,6 +9,7 @@ import { ProductPrismaRepository } from "@product/repository/product.prisma-repo
 import { PRODUCT_REPOSITORY } from "@product/repository/product.repository";
 import { ProductService } from "@product/service/product.service";
 import { AddProduct } from "@product/usecase/add-product/add-product";
+import { GetAllProducts } from "@product/usecase/get-all-products/get-all-products";
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { AddProduct } from "@product/usecase/add-product/add-product";
     },
     ProductService,
     AddProduct,
+    GetAllProducts,
   ],
 })
 export class ProductModule {}
