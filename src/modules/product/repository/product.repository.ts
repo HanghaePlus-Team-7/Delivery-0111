@@ -4,7 +4,7 @@ import { ProductEntity } from "../entity/product.entity";
 
 export interface ProductRepository {
   addProduct: (product: AddProductParam) => Promise<void>;
-  getAllProducts: () => Promise<ProductEntity[]>; // 질문
+  getAllProducts: () => Promise<ProductEntity[]>;
   // getOneProduct
   // updateProduct
   // deleteProduct

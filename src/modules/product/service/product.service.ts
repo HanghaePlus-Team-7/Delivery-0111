@@ -1,10 +1,9 @@
 import { Injectable } from "@nestjs/common";
 
+import { ProductEntity } from "@product/entity/product.entity";
 import { AddProductCommand } from "@product/service/dto/add-product.command";
 import { AddProduct } from "@product/usecase/add-product/add-product";
 import { GetAllProducts } from "@product/usecase/get-all-products/get-all-products";
-
-import { ProductEntity } from "../entity/product.entity";
 
 @Injectable()
 export class ProductService {
