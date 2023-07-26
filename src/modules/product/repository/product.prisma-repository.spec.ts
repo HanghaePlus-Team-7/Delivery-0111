@@ -8,6 +8,7 @@ import { PrismaService } from "@root/prisma/prisma.service";
 import { ProductPrismaRepository } from "@product/repository/product.prisma-repository";
 
 import { truncateTable } from "../../../../test/truncate-table";
+import { ProductEntity } from "../entity/product.entity";
 
 describe("Repository", () => {
   let productPrismaRepository: ProductPrismaRepository;
@@ -77,6 +78,75 @@ describe("Repository", () => {
       expect(product.description).toBe(description);
       expect(product.image).toBe(photoPath);
       expect(product.inStock).toBe(true);
+    });
+  });
+
+  describe("getAllProducts", () => {
+    it("메뉴 전체 조회", async () => {
+      const storeId = uuidV4();
+
+      const menuData1 = {
+        id: uuidV4(),
+        name: "menu1",
+        price: 5000,
+        description: "menu1-description",
+        photoPath: "menu1-photo-path",
+        inStock: true,
+      };
+
+      const menuData2 = {
+        id: uuidV4(),
+        name: "menu2",
+        price: 10000,
+        description: "menu2-description",
+        photoPath: "menu2-photo-path",
+        inStock: true,
+      };
+
+      // 매장 생성
+      await prismaService.store.create({
+        data: {
+          id: storeId,
+          email: "test-email",
+          password: "test-password",
+          name: "test-name",
+          address: "test-address",
+          telephone: "01012345678",
+          openHour: new Date(),
+          closeHour: new Date(),
+        },
+      });
+
+      // menu 생성
+      const product1 = await prismaService.product.create({
+        data: {
+          id: menuData1.id,
+          storeId,
+          name: menuData1.name,
+          price: menuData1.price,
+          description: menuData1.description,
+          image: menuData1.photoPath,
+          inStock: menuData1.inStock,
+        },
+      });
+
+      const product2 = await prismaService.product.create({
+        data: {
+          id: menuData2.id,
+          storeId,
+          name: menuData2.name,
+          price: menuData2.price,
+          description: menuData2.description,
+          image: menuData2.photoPath,
+          inStock: menuData2.inStock,
+        },
+      });
+
+      // usecase 실행
+      const allProducts: ProductEntity[] = await productPrismaRepository.getAllProducts();
+
+      expect(allProducts.length).toBe(2);
+      // expect();
     });
   });
 });
