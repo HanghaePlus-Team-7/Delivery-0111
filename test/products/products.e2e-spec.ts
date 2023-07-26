@@ -46,7 +46,7 @@ describe("products (e2e)", () => {
     });
   });
 
-  afterAll(async () => {
+  afterEach(async () => {
     await truncateTable(prismaService);
     await app.close();
   });

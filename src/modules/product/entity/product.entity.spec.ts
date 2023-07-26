@@ -9,9 +9,9 @@ describe("ProductEntity", () => {
     const name = "상품이름";
     const price = 1000;
     const description = "상품설명";
-    const photoPath = "상품사진경로";
+    const image = "상품사진경로";
 
-    const product = ProductEntity.forAddProduct({ storeId, name, price, description, photoPath });
+    const product = ProductEntity.forAddProduct({ storeId, name, price, description, image });
     expect(isUuid(product.id ?? "")).toBe(true);
   });
 });

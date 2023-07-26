@@ -35,7 +35,7 @@ describe("AddProduct", () => {
       const name = "name";
       const price = 1;
       const description = "description";
-      const photoPath = "photoPath";
+      const image = "image path";
 
       const productEntity = new ProductEntity({
         id,
@@ -43,7 +43,7 @@ describe("AddProduct", () => {
         name,
         price,
         description,
-        photoPath,
+        image,
       });
       await addProduct.execute(productEntity);
 
@@ -53,7 +53,7 @@ describe("AddProduct", () => {
         name: productEntity.name,
         price: productEntity.price,
         description: productEntity.description,
-        image: productEntity.photoPath,
+        image: productEntity.image,
       });
     });
   });

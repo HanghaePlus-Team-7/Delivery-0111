@@ -13,7 +13,7 @@ export class AddProduct {
       !productEntity.name ||
       !productEntity.price ||
       !productEntity.description ||
-      !productEntity.photoPath ||
+      !productEntity.image ||
       !productEntity.storeId
     )
       return Promise.reject(new BadRequestException());
@@ -23,7 +23,7 @@ export class AddProduct {
       name: productEntity.name,
       price: productEntity.price,
       description: productEntity.description,
-      image: productEntity.photoPath,
+      image: productEntity.image,
       storeId: productEntity.storeId,
     });
   }

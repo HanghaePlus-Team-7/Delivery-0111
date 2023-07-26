@@ -9,7 +9,7 @@ export class OrderController {
 
   @Patch("/:orderId/confirmation")
   async confirmOrder(@Param() confirmOrdersRequest: ConfirmOrderRequest): Promise<void> {
-    return await this.ordersService.confirmOrder(confirmOrdersRequest.toDto());
+    return await this.ordersService.confirmOrder(confirmOrdersRequest.toCommand());
   }
 
   @Get("/stores/:storeId")

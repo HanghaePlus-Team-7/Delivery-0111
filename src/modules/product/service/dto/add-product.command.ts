@@ -5,14 +5,14 @@ export class AddProductCommand {
   private readonly _price: number;
   private readonly _description: string;
   private readonly _storeId: string;
-  private readonly _photoPath: string;
+  private readonly _image: string;
 
-  constructor(params: { name: string; price: number; description: string; storeId: string; photoPath: string }) {
+  constructor(params: { name: string; price: number; description: string; storeId: string; image: string }) {
     this._name = params.name;
     this._price = params.price;
     this._description = params.description;
     this._storeId = params.storeId;
-    this._photoPath = params.photoPath;
+    this._image = params.image;
   }
 
   get name(): string {
@@ -31,8 +31,8 @@ export class AddProductCommand {
     return this._storeId;
   }
 
-  get photoPath(): string {
-    return this._photoPath;
+  get image(): string {
+    return this._image;
   }
 
   public toEntity() {
@@ -41,7 +41,7 @@ export class AddProductCommand {
       name: this.name,
       price: this.price,
       description: this.description,
-      photoPath: this.photoPath,
+      image: this.image,
     });
   }
 }

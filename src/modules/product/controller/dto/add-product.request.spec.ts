@@ -20,6 +20,6 @@ describe("AddProductRequest", () => {
     expect(addProductCommand.price).toBe(price);
     expect(addProductCommand.description).toBe(description);
     expect(addProductCommand.storeId).toBe(storeId);
-    expect(addProductCommand.photoPath).toBe(file.path);
+    expect(addProductCommand.image).toBe(file.path);
   });
 });

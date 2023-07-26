@@ -38,7 +38,7 @@ describe("Repository", () => {
       const name = "test-name";
       const price = 1000;
       const description = "test-description";
-      const photoPath = "test-photo-path";
+      const image = "test-image-path";
 
       await prismaService.store.create({
         data: {
@@ -59,7 +59,7 @@ describe("Repository", () => {
         name,
         price,
         description,
-        image: photoPath,
+        image,
       });
 
       const product = await prismaService.product.findUnique({
@@ -76,7 +76,7 @@ describe("Repository", () => {
       expect(product.name).toBe(name);
       expect(product.price).toBe(price);
       expect(product.description).toBe(description);
-      expect(product.image).toBe(photoPath);
+      expect(product.image).toBe(image);
       expect(product.inStock).toBe(true);
     });
   });
@@ -93,7 +93,7 @@ describe("Repository", () => {
         name: "menu1",
         price: 5000,
         description: "menu1-description",
-        photoPath: "menu1-photo-path",
+        image: "menu1-image-path",
         inStock: true,
       };
 
@@ -102,7 +102,7 @@ describe("Repository", () => {
         name: "menu2",
         price: 10000,
         description: "menu2-description",
-        photoPath: "menu2-photo-path",
+        image: "menu2-image-path",
         inStock: true,
       };
 
@@ -128,7 +128,7 @@ describe("Repository", () => {
           name: menuData1.name,
           price: menuData1.price,
           description: menuData1.description,
-          image: menuData1.photoPath,
+          image: menuData1.image,
           inStock: menuData1.inStock,
         },
       });
@@ -140,7 +140,7 @@ describe("Repository", () => {
           name: menuData2.name,
           price: menuData2.price,
           description: menuData2.description,
-          image: menuData2.photoPath,
+          image: menuData2.image,
           inStock: menuData2.inStock,
         },
       });
@@ -153,12 +153,12 @@ describe("Repository", () => {
       expect(allProducts[0].name).toBe(menuData1.name);
       expect(allProducts[0].price).toBe(menuData1.price);
       expect(allProducts[0].description).toBe(menuData1.description);
-      expect(allProducts[0].image).toBe(menuData1.photoPath);
+      expect(allProducts[0].image).toBe(menuData1.image);
 
       expect(allProducts[1].name).toBe(menuData2.name);
       expect(allProducts[1].price).toBe(menuData2.price);
       expect(allProducts[1].description).toBe(menuData2.description);
-      expect(allProducts[1].image).toBe(menuData2.photoPath);
+      expect(allProducts[1].image).toBe(menuData2.image);
     });
   });
 });

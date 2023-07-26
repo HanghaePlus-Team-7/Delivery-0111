@@ -39,7 +39,7 @@ describe("OrdersController", () => {
 
       await controller.confirmOrder(confirmOrdersDto);
       expect(ordersService.confirmOrder).toBeCalledTimes(1);
-      expect(ordersService.confirmOrder).toBeCalledWith(confirmOrdersDto.toDto());
+      expect(ordersService.confirmOrder).toBeCalledWith(confirmOrdersDto.toCommand());
     });
   });
 
