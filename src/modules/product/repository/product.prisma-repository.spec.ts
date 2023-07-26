@@ -53,7 +53,7 @@ describe("Repository", () => {
         },
       });
 
-      await productPrismaRepository.addProduct({
+      const productEntity = new ProductEntity({
         id,
         storeId,
         name,
@@ -61,6 +61,7 @@ describe("Repository", () => {
         description,
         image,
       });
+      await productPrismaRepository.addProduct(productEntity);
 
       const product = await prismaService.product.findUnique({
         where: {
@@ -85,24 +86,24 @@ describe("Repository", () => {
     beforeEach(async () => {
       await truncateTable(prismaService);
     });
-    it("메뉴 전체 조회", async () => {
+    it("상품 전체 조회", async () => {
       const storeId = uuidV4();
 
-      const menuData1 = {
+      const productData1 = {
         id: uuidV4(),
-        name: "menu1",
+        name: "product1",
         price: 5000,
-        description: "menu1-description",
-        image: "menu1-image-path",
+        description: "product1-description",
+        image: "product1-image-path",
         inStock: true,
       };
 
-      const menuData2 = {
+      const productData2 = {
         id: uuidV4(),
-        name: "menu2",
+        name: "product2",
         price: 10000,
-        description: "menu2-description",
-        image: "menu2-image-path",
+        description: "product2-description",
+        image: "product2-image-path",
         inStock: true,
       };
 
@@ -120,28 +121,28 @@ describe("Repository", () => {
         },
       });
 
-      // menu 생성
-      const product1 = await prismaService.product.create({
+      // 상품 생성
+      await prismaService.product.create({
         data: {
-          id: menuData1.id,
+          id: productData1.id,
           storeId,
-          name: menuData1.name,
-          price: menuData1.price,
-          description: menuData1.description,
-          image: menuData1.image,
-          inStock: menuData1.inStock,
+          name: productData1.name,
+          price: productData1.price,
+          description: productData1.description,
+          image: productData1.image,
+          inStock: productData1.inStock,
         },
       });
 
-      const product2 = await prismaService.product.create({
+      await prismaService.product.create({
         data: {
-          id: menuData2.id,
+          id: productData2.id,
           storeId,
-          name: menuData2.name,
-          price: menuData2.price,
-          description: menuData2.description,
-          image: menuData2.image,
-          inStock: menuData2.inStock,
+          name: productData2.name,
+          price: productData2.price,
+          description: productData2.description,
+          image: productData2.image,
+          inStock: productData2.inStock,
         },
       });
 
@@ -150,15 +151,15 @@ describe("Repository", () => {
 
       expect(allProducts.length).toBe(2);
 
-      expect(allProducts[0].name).toBe(menuData1.name);
-      expect(allProducts[0].price).toBe(menuData1.price);
-      expect(allProducts[0].description).toBe(menuData1.description);
-      expect(allProducts[0].image).toBe(menuData1.image);
+      expect(allProducts[0].name).toBe(productData1.name);
+      expect(allProducts[0].price).toBe(productData1.price);
+      expect(allProducts[0].description).toBe(productData1.description);
+      expect(allProducts[0].image).toBe(productData1.image);
 
-      expect(allProducts[1].name).toBe(menuData2.name);
-      expect(allProducts[1].price).toBe(menuData2.price);
-      expect(allProducts[1].description).toBe(menuData2.description);
-      expect(allProducts[1].image).toBe(menuData2.image);
+      expect(allProducts[1].name).toBe(productData2.name);
+      expect(allProducts[1].price).toBe(productData2.price);
+      expect(allProducts[1].description).toBe(productData2.description);
+      expect(allProducts[1].image).toBe(productData2.image);
     });
   });
 });

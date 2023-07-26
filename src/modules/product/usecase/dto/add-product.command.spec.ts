@@ -1,5 +1,5 @@
 import { ProductEntity } from "@product/entity/product.entity";
-import { AddProductCommand } from "@product/service/dto/add-product.command";
+import { AddProductCommand } from "@product/usecase/dto/add-product.command";
 
 describe("AddProductCommend", () => {
   it("toEntity 가 ProductEntity 를 반환 해야 한다.", () => {

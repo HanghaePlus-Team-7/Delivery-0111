@@ -1,9 +1,7 @@
-import { AddProductParam } from "@product/repository/interface/add-product-param";
-
 import { ProductEntity } from "../entity/product.entity";
 
 export interface ProductRepository {
-  addProduct: (product: AddProductParam) => Promise<void>;
+  addProduct: (product: ProductEntity) => Promise<ProductEntity>;
   getAllProducts: () => Promise<ProductEntity[]>;
   // getOneProduct
   // updateProduct

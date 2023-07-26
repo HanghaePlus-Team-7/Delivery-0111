@@ -51,18 +51,18 @@ describe("products (e2e)", () => {
     await app.close();
   });
 
-  describe("메뉴추가", () => {
-    let menuData: { name: string; price: number; description: string; photo: string; storeId: string };
+  describe("상품 추가", () => {
+    let productData: { name: string; price: number; description: string; photo: string; storeId: string };
     const filePath = process.env.UPLOAD_FILE_PATH || "../test/data/uploads";
     const fileName = process.env.UPLOAD_FILE_NAME || "test.png";
     const path = `${filePath}/${fileName}`;
 
     beforeEach(() => {
-      menuData = {
-        name: "test-menu-name",
+      productData = {
+        name: "test-product-name",
         price: 10000,
-        description: "test-menu-description",
-        photo: `${__dirname}/../data/menu-test-img/test-menu-photo.png`,
+        description: "test-product-description",
+        photo: `${__dirname}/../data/product-test-img/test-product-photo.png`,
         storeId: store.id,
       };
     });
@@ -71,41 +71,41 @@ describe("products (e2e)", () => {
       fs.unlinkSync(path);
     });
 
-    it("메뉴 추가 요청 성공하면 201 응답이 오나?", async () => {
+    it("상품 추가 요청이 성공하면 201 응답이 와야 한다.", async () => {
       const res = await request(app.getHttpServer())
         .post("/products")
         .set("Content-Type", "multipart/form-data")
-        .attach("photo", menuData.photo)
-        .field("name", menuData.name)
-        .field("price", menuData.price)
-        .field("description", menuData.description)
-        .field("storeId", menuData.storeId.toString());
+        .attach("photo", productData.photo)
+        .field("name", productData.name)
+        .field("price", productData.price)
+        .field("description", productData.description)
+        .field("storeId", productData.storeId);
 
       expect(res.statusCode).toBe(201);
     });
 
-    it("메뉴 추가 요청 multer로 파일 저장 잘함?", async () => {
+    it("상품 추가 요청 multer로 파일 저장할 수 있어야 한다.", async () => {
       await request(app.getHttpServer())
         .post("/products")
         .set("Content-Type", "multipart/form-data")
-        .attach("photo", menuData.photo)
-        .field("name", menuData.name)
-        .field("price", menuData.price)
-        .field("description", menuData.description)
-        .field("storeId", menuData.storeId.toString());
+        .attach("photo", productData.photo)
+        .field("name", productData.name)
+        .field("price", productData.price)
+        .field("description", productData.description)
+        .field("storeId", productData.storeId);
 
       expect(isExistFile(path)).toBe(true);
     });
   });
 
-  describe("메뉴 전체 조회", () => {
-    it("메뉴 전체 조회 시 200 응답을 반환하는가?", async () => {
+  describe("상품 전체 조회", () => {
+    it("상품 전체 조회 시 200 응답을 반환하는가?", async () => {
       const res = await request(app.getHttpServer()).get("/products");
       expect(res.statusCode).toBe(200);
     });
   });
 
-  describe("메뉴 수정", () => {
-    it("메뉴 수정 시 201 응답을 반환하는가?", async () => {});
+  describe("상품 수정", () => {
+    it("상품 수정 시 201 응답을 반환하는가?", async () => {});
   });
 });
