@@ -25,4 +25,13 @@ export class ProductPrismaRepository implements ProductRepository {
       throw new InternalServerErrorException();
     }
   }
+
+  // ProductEntity[] : Product 테이블에 photoPath 컬럼이 없어서 에러나서 일단 any로 지정
+  async getAllProducts(): Promise<any[]> {
+    try {
+      return await this.prismaService.product.findMany();
+    } catch (e) {
+      throw new InternalServerErrorException();
+    }
+  }
 }
