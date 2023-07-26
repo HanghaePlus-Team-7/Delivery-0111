@@ -82,6 +82,9 @@ describe("Repository", () => {
   });
 
   describe("getAllProducts", () => {
+    beforeEach(async () => {
+      await truncateTable(prismaService);
+    });
     it("메뉴 전체 조회", async () => {
       const storeId = uuidV4();
 
@@ -146,7 +149,16 @@ describe("Repository", () => {
       const allProducts: ProductEntity[] = await productPrismaRepository.getAllProducts();
 
       expect(allProducts.length).toBe(2);
-      // expect();
+
+      expect(allProducts[0].name).toBe(menuData1.name);
+      expect(allProducts[0].price).toBe(menuData1.price);
+      expect(allProducts[0].description).toBe(menuData1.description);
+      expect(allProducts[0].image).toBe(menuData1.photoPath);
+
+      expect(allProducts[1].name).toBe(menuData2.name);
+      expect(allProducts[1].price).toBe(menuData2.price);
+      expect(allProducts[1].description).toBe(menuData2.description);
+      expect(allProducts[1].image).toBe(menuData2.photoPath);
     });
   });
 });
