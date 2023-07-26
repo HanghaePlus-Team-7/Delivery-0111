@@ -2,6 +2,7 @@ import { Injectable, InternalServerErrorException } from "@nestjs/common";
 
 import { PrismaService } from "@root/prisma/prisma.service";
 
+import { ProductEntity } from "@product/entity/product.entity";
 import { AddProductParam } from "@product/repository/interface/add-product-param";
 import { ProductRepository } from "@product/repository/product.repository";
 
@@ -26,8 +27,7 @@ export class ProductPrismaRepository implements ProductRepository {
     }
   }
 
-  // ProductEntity[] : Product 테이블에 photoPath 컬럼이 없어서 에러나서 일단 any로 지정
-  async getAllProducts(): Promise<any[]> {
+  async getAllProducts(): Promise<ProductEntity[]> {
     try {
       return await this.prismaService.product.findMany();
     } catch (e) {

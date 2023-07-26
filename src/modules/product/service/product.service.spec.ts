@@ -48,9 +48,9 @@ describe("ProductService", () => {
       const name = "name";
       const price = 1;
       const description = "description";
-      const photoPath = "photoPath";
+      const image = "image path";
 
-      const addProductCommand = new AddProductCommand({ storeId, name, price, description, photoPath });
+      const addProductCommand = new AddProductCommand({ storeId, name, price, description, image });
       const spyProductEntityForAddProduct = jest.spyOn(ProductEntity, "forAddProduct");
 
       await service.addProduct(addProductCommand);

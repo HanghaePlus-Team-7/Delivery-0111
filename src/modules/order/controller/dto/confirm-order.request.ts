@@ -16,7 +16,7 @@ export class ConfirmOrderRequest {
     return new ConfirmOrderRequest(params);
   }
 
-  public toDto() {
+  public toCommand() {
     return new UpdateOrderStatusCommand(this.orderId, OrderMessage.CONFIRMED);
   }
 }

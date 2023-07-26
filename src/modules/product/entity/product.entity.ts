@@ -6,7 +6,6 @@ export class ProductEntity {
   private readonly _name?: string;
   private readonly _price?: number;
   private readonly _description?: string;
-  private readonly _photoPath?: string;
   private readonly _image?: string;
   private readonly _inStock?: boolean;
 
@@ -16,7 +15,6 @@ export class ProductEntity {
     name?: string;
     price?: number;
     description?: string;
-    photoPath?: string;
     image?: string;
     inStock?: boolean;
   }) {
@@ -25,7 +23,6 @@ export class ProductEntity {
     this._name = params.name;
     this._price = params.price;
     this._description = params.description;
-    this._photoPath = params.photoPath;
     this._image = params.image;
     this._inStock = params.inStock;
   }
@@ -50,10 +47,6 @@ export class ProductEntity {
     return this._description;
   }
 
-  get photoPath() {
-    return this._photoPath;
-  }
-
   get image() {
     return this._image;
   }
@@ -62,20 +55,14 @@ export class ProductEntity {
     return this._inStock;
   }
 
-  static forAddProduct(params: {
-    storeId: string;
-    name: string;
-    price: number;
-    description: string;
-    photoPath: string;
-  }) {
+  static forAddProduct(params: { storeId: string; name: string; price: number; description: string; image: string }) {
     return new ProductEntity({
       id: uuidV4(),
       storeId: params.storeId,
       name: params.name,
       price: params.price,
       description: params.description,
-      photoPath: params.photoPath,
+      image: params.image,
     });
   }
 }
