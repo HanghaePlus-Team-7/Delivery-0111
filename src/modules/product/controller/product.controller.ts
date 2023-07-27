@@ -2,20 +2,24 @@ import { Body, Controller, Get, Post, UploadedFile, UseInterceptors } from "@nes
 import { FileInterceptor } from "@nestjs/platform-express";
 
 import { AddProductRequest } from "@product/controller/dto/add-product.request";
-import { ProductService } from "@product/service/product.service";
+import { AddProductUseCase } from "@product/usecase/add-product.use-case";
+import { GetAllProductsUseCase } from "@product/usecase/get-all-products.use-case";
 
 @Controller("products")
 export class ProductController {
-  constructor(private readonly productService: ProductService) {}
+  constructor(
+    private readonly addProductUseCase: AddProductUseCase,
+    private readonly getAllProducts: GetAllProductsUseCase,
+  ) {}
 
   @Post()
   @UseInterceptors(FileInterceptor("photo"))
   async addProduct(@UploadedFile() photo: Express.Multer.File, @Body() addProductRequest: AddProductRequest) {
-    await this.productService.addProduct(addProductRequest.toCommand(photo));
+    await this.addProductUseCase.execute(addProductRequest.toCommand(photo));
   }
 
   @Get()
   async getAllProduct() {
-    return await this.productService.getAllProducts();
+    return await this.getAllProducts.execute();
   }
 }

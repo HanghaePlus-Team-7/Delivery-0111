@@ -7,9 +7,8 @@ import { PrismaModule } from "@root/prisma/prisma.module";
 import { ProductController } from "@product/controller/product.controller";
 import { ProductPrismaRepository } from "@product/repository/product.prisma-repository";
 import { PRODUCT_REPOSITORY } from "@product/repository/product.repository";
-import { ProductService } from "@product/service/product.service";
-import { AddProduct } from "@product/usecase/add-product/add-product";
-import { GetAllProducts } from "@product/usecase/get-all-products/get-all-products";
+import { AddProductUseCase } from "@product/usecase/add-product.use-case";
+import { GetAllProductsUseCase } from "@product/usecase/get-all-products.use-case";
 
 @Module({
   imports: [
@@ -24,9 +23,8 @@ import { GetAllProducts } from "@product/usecase/get-all-products/get-all-produc
       provide: PRODUCT_REPOSITORY,
       useClass: ProductPrismaRepository,
     },
-    ProductService,
-    AddProduct,
-    GetAllProducts,
+    GetAllProductsUseCase,
+    AddProductUseCase,
   ],
 })
 export class ProductModule {}

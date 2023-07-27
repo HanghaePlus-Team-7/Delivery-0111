@@ -1,7 +1,7 @@
 import { v4 as uuidV4 } from "uuid";
 
 import { AddProductRequest } from "@product/controller/dto/add-product.request";
-import { AddProductCommand } from "@product/service/dto/add-product.command";
+import { AddProductCommand } from "@product/usecase/dto/add-product.command";
 
 describe("AddProductRequest", () => {
   it("toCommand", () => {

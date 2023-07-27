@@ -1,7 +1,7 @@
 import { Transform } from "class-transformer";
 import { IsInt, IsNotEmpty, IsString, IsUUID } from "class-validator";
 
-import { AddProductCommand } from "@product/service/dto/add-product.command";
+import { AddProductCommand } from "@product/usecase/dto/add-product.command";
 
 export class AddProductRequest {
   @IsNotEmpty()
